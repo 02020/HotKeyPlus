@@ -21,8 +21,8 @@ function qGetToogleHandle()
         iWindow = 1
     end
 
-    local win =  tWindow[sWindow[iWindow]]
-    if win==nil then
+    local win = tWindow[sWindow[iWindow]]
+    if win == nil then
         return qGetToogleHandle()
     end
 
@@ -50,14 +50,10 @@ function qActivateWindow(win)
         acRestoreWindow(w, gsx, gsy)
         acActivateWindow(w, gsx, gsy, 0)
     end
-    
 end
 
-
 --激活窗体
-function qActivateWindowByHandle(w) 
-        acRestoreWindow(w, gsx, gsy)
-        acActivateWindow(w, gsx, gsy, 0)
-    
-    
+function qActivateWindowByHandle(w)
+    acRestoreWindow(w, gsx, gsy)
+    acActivateWindow(w, gsx, gsy, 0)
 end
