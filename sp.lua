@@ -24,11 +24,14 @@ gScreenMsgLevel = 1
 
 -- 上下边栏高度
 
-gTopBottomMargin = 50
+gTopBottomMargin = 300
 
 -- 左右边栏宽度
 
-gLeftRightMargin = 100
+gLeftRightMargin = 400
+ 
+
+ 
 
 function sp_init()
     -- code in this function is fired once when the Lua engine is reloaded
@@ -36,6 +39,9 @@ function sp_init()
     -- which occurs when S+ is started, Ok/Apply is clicked in the settings window
 
     -- or when Reload Config and Lua Engine is clicked from the tray menu
+
+
+
 
     gTopBottomMargin = acGetMonitorBottom(acGetMonitorFromPoint(gsx, gsy), 1) / 16
 
@@ -45,22 +51,27 @@ end
 -- 在屏幕显示信息
 
 function gShowScreenMessage(msg, level, mx, my)
+    if type(msg) == nil or type(msg) == "nil" then
+        acMessageBox(type(msg))
+        -- acDisplayText("nil", "微软雅黑", 40, 255, 128, 0, 600, 1200,600)
+        return
+    end
+
     local rt = acGetMonitorRight(acGetMonitorFromPoint(mx, my), 1)
 
     local bt = acGetMonitorBottom(acGetMonitorFromPoint(mx, my), 1)
 
     local charwd = 30
-   -- local msgwd = 10
- --   local delay = 300
-   -- if type(msg) == "string" then
-   local msgwd = string.len(msg) * charwd
+    -- local msgwd = 10
+    --   local delay = 300
 
-        -- 根据显示信息量控制显示时长，同时越长信息平均每字显示时间越短
-        local   delay = string.len(msg) * 200 * 0.7
- --   end
+    local msgwd = string.len(msg) * charwd
+
+    -- 根据显示信息量控制显示时长，同时越长信息平均每字显示时间越短
+    local delay = string.len(msg) * 200 * 0.7
 
     if mx == nil then
-        mx = 500
+        mx = 1200
     end
     local tx = mx - msgwd / 2
 

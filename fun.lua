@@ -21,12 +21,19 @@ function qGetToogleHandle()
         iWindow = 1
     end
 
-    local win = tWindow[sWindow[iWindow]]
+    local code = sWindow[iWindow]
+
+    if type(code) == "number" then
+        return code
+    end
+    --判断配置文件是否正确
+    local win = tWindow[code]
     if win == nil then
         return qGetToogleHandle()
     end
 
     local w = acFindWindow(win.className, nil)
+
     if w == nil or w == 0 or w == "CiceroUIWndFrame" or w == "SysListView32" then
         return qGetToogleHandle()
     else
@@ -56,4 +63,26 @@ end
 function qActivateWindowByHandle(w)
     acRestoreWindow(w, gsx, gsy)
     acActivateWindow(w, gsx, gsy, 0)
+end
+
+--- 获取当前窗体ID 只能写在
+function qGetHandleID()
+    id = acGetWindowByPoint(gsx, gsy)
+    gShowScreenMessage(id, 1, gsx, gsy)
+    acSetClipboardText(id)
+end
+
+
+
+
+function d()
+    acSendKeys("^c")
+    --先复制要搜索的内容，当然你也可以预先复制，只要不选中内容即可
+    acDelay(50)
+    --延时50ms
+    acSendKeys("^f")
+    --查找的快捷键
+    acSendKeys("^v")
+    --此时输入焦点在搜索框中，我们粘贴即可
+    acSendKeys("{DELAY=50}%{ENTER}")
 end
