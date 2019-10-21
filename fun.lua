@@ -35,6 +35,7 @@ function qGetToogleHandle()
     local w = acFindWindow(win.className, nil)
 
     if w == nil or w == 0 or w == "CiceroUIWndFrame" or w == "SysListView32" then
+        gShow(win.className)
         return qGetToogleHandle()
     else
         return w
@@ -44,8 +45,8 @@ end
 function qExecuteToogle()
     local w = qGetToogleHandle()
 
-    acRestoreWindow(w, gsx, gsy)
-    acActivateWindow(w, gsx, gsy, 0)
+    acRestoreWindow(w, 0, 0)
+    acActivateWindow(w, 0, 0, 0)
 end
 
 --激活窗体
@@ -64,16 +65,6 @@ function qActivateWindowByHandle(w)
     acRestoreWindow(w, gsx, gsy)
     acActivateWindow(w, gsx, gsy, 0)
 end
-
---- 获取当前窗体ID 只能写在
-function qGetHandleID()
-    id = acGetWindowByPoint(gsx, gsy)
-    gShowScreenMessage(id, 1, gsx, gsy)
-    acSetClipboardText(id)
-end
-
-
-
 
 function d()
     acSendKeys("^c")

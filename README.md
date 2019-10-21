@@ -41,5 +41,6 @@ acSendWinDown()和acSendWinUp()   Windows键
     {PLUS} = + 
     {CARET} = ^ 
     {PERCENT} = % 
+    {ENTER}
     
 所以ctrl+w就可以表示成^w，整个写法就是acSendKeys("^w")了，ctrl+shift+alt+h就可以表示成(^+%h)了，其他写法类推。 

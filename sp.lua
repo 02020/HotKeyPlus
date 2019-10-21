@@ -29,9 +29,6 @@ gTopBottomMargin = 300
 -- 左右边栏宽度
 
 gLeftRightMargin = 400
- 
-
- 
 
 function sp_init()
     -- code in this function is fired once when the Lua engine is reloaded
@@ -40,15 +37,15 @@ function sp_init()
 
     -- or when Reload Config and Lua Engine is clicked from the tray menu
 
-
-
-
     gTopBottomMargin = acGetMonitorBottom(acGetMonitorFromPoint(gsx, gsy), 1) / 16
 
     gLeftRightMargin = acGetMonitorRight(acGetMonitorFromPoint(gsx, gsy), 1) / 16
 end
 
 -- 在屏幕显示信息
+function gShow(msg)
+    gShowScreenMessage(msg, 1, cur.gsx, cur.gsy)
+end
 
 function gShowScreenMessage(msg, level, mx, my)
     if type(msg) == nil or type(msg) == "nil" then
@@ -57,9 +54,9 @@ function gShowScreenMessage(msg, level, mx, my)
         return
     end
 
-    local rt = acGetMonitorRight(acGetMonitorFromPoint(mx, my), 1)
-
-    local bt = acGetMonitorBottom(acGetMonitorFromPoint(mx, my), 1)
+    local point = acGetMonitorFromPoint(mx, my)
+    local rt = acGetMonitorRight(point, 1)
+    local bt = acGetMonitorBottom(point, 1)
 
     local charwd = 30
     -- local msgwd = 10

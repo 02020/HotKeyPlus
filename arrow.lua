@@ -1,6 +1,6 @@
 --- 鼠标的四个方向 正
 
---- 向上
+------------------------------------------------------ 向上
 funUp={}
 function funUp:top(  )
     gShowScreenMessage("t", 1,cur.gsx, cur.gsy)
@@ -18,10 +18,11 @@ function funUp:bottom(  )
     gShowScreenMessage("b", 1,cur.gsx, cur.gsy)
 end
 function funUp:mid(  )
-    gShowScreenMessage("m", 1,cur.gsx, cur.gsy)
+    --显示窗体
+    acShowActions()
 end
 
---- 向下
+------------------------------------------------------ 向下
 funDown={}
 function funDown:top(  )
     gShowScreenMessage("re", 1, gsx, gsy)
@@ -45,7 +46,8 @@ function funDown:mid(  )
     acSendKeys("^v")
 end
 
---- 向右
+------------------------------------------------------ 向右
+--- 粘贴、刷新、全选
 funRight={}
 function funRight:top(  )
     gShowScreenMessage("re", 1, gsx, gsy)
@@ -53,7 +55,8 @@ function funRight:top(  )
 end
 
 function funRight:right(  )
-    gShowScreenMessage("r", 1,cur.gsx, cur.gsy)
+    gShowScreenMessage("ctrl+v", 2, cur.gsx, cur.gsy)
+    acSendKeys("^v")
 end
 
 function funRight:left(  )
@@ -65,16 +68,17 @@ function funRight:bottom(  )
         acSendKeys("^a")
 end
 function funRight:mid(  )
-    gShowScreenMessage("ctrl+v", 2, gsx, gsy)
-    acSendKeys("^v")
+    qExecuteToogle()
+
 end
+--五个区域
 
-
--- 向左  --五个区域
+------------------------------------------------------ 向左  
+-- 撤销 退格
 funLeft={}
 function funLeft:top(  )
-    gShowScreenMessage("re", 1, gsx, gsy)
-    acSendKeys("{F_5}")
+    gShowScreenMessage("撤消", 1, gsx, gsy)
+    acSendKeys("^z")
 end
 
 function funLeft:right(  )
@@ -86,12 +90,11 @@ function funLeft:left(  )
 end
 
 function funLeft:bottom(  )
-    gShowScreenMessage("select all", 1, gsx, gsy)
-        acSendKeys("^a")
+    gShowScreenMessage("退格", 2, gsx, gsy)
+    acSendKeys("{BACKSPACE}")
 end
 function funLeft:mid(  )
-    gShowScreenMessage("ctrl+v", 2, gsx, gsy)
-    acSendKeys("^v")
+ 
 end
 
 
@@ -101,7 +104,7 @@ function qUp()
     funUp[lGetMousePosition()]();
  end
  
- function qDown(bt, tp)
+ function qDown()
      funUp[lGetMousePosition()]();
  end
  
@@ -109,7 +112,7 @@ function qLeft()
     funLeft[lGetMousePosition()]();
  end
  
- function qRight(bt, tp)
+ function qRight()
      funRight[lGetMousePosition()]();
  end
  
