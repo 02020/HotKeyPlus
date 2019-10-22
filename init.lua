@@ -1,10 +1,10 @@
 --sWindow = {"notepad", "google", "dopus"}
 cur = {}  --当前鼠标位置
-sWinTim = 262996
-svscode = 197122
-svs = 132224
+sWinTim = 197506
 
-sWindow = { svs, "notepad"}
+
+sWindow = { "vscode","vs", "notepad"}
+ 
 
 require("config");
 require("sp");

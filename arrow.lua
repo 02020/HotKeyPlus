@@ -17,7 +17,8 @@ end
 function funUp:bottom(  )
     gShowScreenMessage("b", 1,cur.gsx, cur.gsy)
 end
-function funUp:mid(  )
+function funUp:mid( )
+    qGetHandleID()
     --显示窗体
     acShowActions()
 end
@@ -49,14 +50,26 @@ end
 ------------------------------------------------------ 向右
 --- 粘贴、刷新、全选
 funRight={}
+funRightV={}
 function funRight:top(  )
     gShowScreenMessage("re", 1, gsx, gsy)
     acSendKeys("{F_5}")
 end
 
-function funRight:right(  )
-    gShowScreenMessage("ctrl+v", 2, cur.gsx, cur.gsy)
-    acSendKeys("^v")
+function funRightV:A()
+    qActivateWindow("notepad")    
+end
+function funRightV:B()
+    qActivateWindow("vs")
+end
+function funRightV:C()
+    qActivateWindow("vscode")    
+end
+function funRightV:D()
+end
+function funRight:right()
+   local x =  lGetMousePositionV()
+   funRightV[x]()
 end
 
 function funRight:left(  )
@@ -82,7 +95,9 @@ function funLeft:top(  )
 end
 
 function funLeft:right(  )
-    gShowScreenMessage("r", 1,cur.gsx, cur.gsy)
+  
+ 
+
 end
 
 function funLeft:left(  )

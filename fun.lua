@@ -43,37 +43,78 @@ function qGetToogleHandle()
 end
 
 function qExecuteToogle()
-    local w = qGetToogleHandle()
+    iWindow = iWindow + 1
 
-    acRestoreWindow(w, 0, 0)
-    acActivateWindow(w, 0, 0, 0)
+    if iWindow > 3 then
+        iWindow = 1
+    end
+
+    local code = sWindow[iWindow]
+
+    if type(code) == "number" then
+        qActivate(code)
+    else
+        qActivateWindow(code)
+    end
 end
 
+
+
 --激活窗体
-function qActivateWindow(win)
-    local w = acFindWindow(tWindow[win].className, tWindow[win].title)
+function qActivateWindow(name)
+    if name == nil then
+        acMessageBox("qActivateWindow：name is empty")
+        return
+    end
+
+    local w = 0
+    if type(name) == "number" then
+        qActivateWindowByHandle(name)
+        return
+    end
+
+    local win = tWindow[name]
+    --判断配置文件是否存在
+    if win == nil or win.className == nil then
+        acMessageBox(name .. " config is empty")
+        return
+    end
+
+    local w = win.hwnd
+    if w == 0 or w == nil then
+        -- acMessageBox(win.className)
+        w = acFindWindow(win.className, nil)
+        if w == 0 then
+            w = get_window_handle(win.className)
+        end
+    end
+
     if w == nil or w == 0 then
-        acMessageBox("window is not")
+        acMessageBox(name .. " window is Not Exist")
     else
-        acRestoreWindow(w, gsx, gsy)
-        acActivateWindow(w, gsx, gsy, 0)
+        win.hwnd = w
+        qActivateWindowByHandle(w)
     end
 end
 
 --激活窗体
-function qActivateWindowByHandle(w)
-    acRestoreWindow(w, gsx, gsy)
-    acActivateWindow(w, gsx, gsy, 0)
+-- code : hnwd classname
+function qActivate(code)
+    local w = 0
+    if type(code) ~= "number" then
+        w = acFindWindow(code, nil)
+    else
+        w = code
+    end
+    if w == nil or w == 0 then
+        acMessageBox("qActivate: " .. code .. " window is Not Exist")
+    else
+        acRestoreWindow(w, 0, 0)
+        acActivateWindow(w, 0, 0, 0)
+    end
 end
 
-function d()
-    acSendKeys("^c")
-    --先复制要搜索的内容，当然你也可以预先复制，只要不选中内容即可
-    acDelay(50)
-    --延时50ms
-    acSendKeys("^f")
-    --查找的快捷键
-    acSendKeys("^v")
-    --此时输入焦点在搜索框中，我们粘贴即可
-    acSendKeys("{DELAY=50}%{ENTER}")
+function qActivateWindowByHandle(w)
+    acRestoreWindow(w, 0, 0)
+    acActivateWindow(w, 0, 0, 0)
 end

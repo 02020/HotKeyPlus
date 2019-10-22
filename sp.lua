@@ -23,12 +23,10 @@ GA_ROOTOWNER = 3
 gScreenMsgLevel = 1
 
 -- 上下边栏高度
-
-gTopBottomMargin = 300
+gTopBottomMargin = 0
 
 -- 左右边栏宽度
-
-gLeftRightMargin = 400
+gLeftRightMargin = 0
 
 function sp_init()
     -- code in this function is fired once when the Lua engine is reloaded
@@ -37,9 +35,8 @@ function sp_init()
 
     -- or when Reload Config and Lua Engine is clicked from the tray menu
 
-    gTopBottomMargin = acGetMonitorBottom(acGetMonitorFromPoint(gsx, gsy), 1) / 16
-
-    gLeftRightMargin = acGetMonitorRight(acGetMonitorFromPoint(gsx, gsy), 1) / 16
+    gTopBottomMargin = acGetMonitorBottom(acGetMonitorFromPoint(gsx, gsy), 1) / 4
+    gLeftRightMargin = acGetMonitorRight(acGetMonitorFromPoint(gsx, gsy), 1) / 4
 end
 
 -- 在屏幕显示信息

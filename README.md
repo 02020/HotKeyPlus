@@ -7,9 +7,21 @@ StrokesPlus.lua 文件格式需要处理 git 支持 UTF-8 格式
 
 `acGetWindowByPoint`  只能写在程序中
 
+几种情况
+`className` 不固定，可以使用acFindWindow方法
+列表：vs
+
+`className` 固定，使用acFindWindow方法，无法返回数据
+列表：google, vivaldi, vscode 
 
 
 
+#### 浏览器
+通过AHK的快捷键打开
+
+
+
+https://github.com/wo52616111/capslock-plus
 
 在搜狗浏览器中acSendKeys("^{F_4}")一直不成功，换成了 
 acSendControlDown() 
