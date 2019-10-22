@@ -22,10 +22,10 @@ GA_ROOTOWNER = 3
 
 gScreenMsgLevel = 1
 
--- 上下边栏高度
+-- 上下边栏高度 1/4 屏幕
 gTopBottomMargin = 0
 
--- 左右边栏宽度
+-- 左右边栏宽度 1/4 屏幕
 gLeftRightMargin = 0
 
 function sp_init()
@@ -39,53 +39,8 @@ function sp_init()
     gLeftRightMargin = acGetMonitorRight(acGetMonitorFromPoint(gsx, gsy), 1) / 4
 end
 
--- 在屏幕显示信息
-function gShow(msg)
-    gShowScreenMessage(msg, 1, cur.gsx, cur.gsy)
-end
-
-function gShowScreenMessage(msg, level, mx, my)
-    if type(msg) == nil or type(msg) == "nil" then
-        acMessageBox(type(msg))
-        -- acDisplayText("nil", "微软雅黑", 40, 255, 128, 0, 600, 1200,600)
-        return
-    end
-
-    local point = acGetMonitorFromPoint(mx, my)
-    local rt = acGetMonitorRight(point, 1)
-    local bt = acGetMonitorBottom(point, 1)
-
-    local charwd = 30
-    -- local msgwd = 10
-    --   local delay = 300
-
-    local msgwd = string.len(msg) * charwd
-
-    -- 根据显示信息量控制显示时长，同时越长信息平均每字显示时间越短
-    local delay = string.len(msg) * 200 * 0.7
-
-    if mx == nil then
-        mx = 1200
-    end
-    local tx = mx - msgwd / 2
-
-    local ty = bt / 2 - charwd * 2
-
-    -- 修正在超出边界的情况
-
-    if (tx + msgwd) > rt then
-        tx = rt - msgwd - 20
-    end
-
-    if tx < 0 then
-        tx = 20
-    end
-
-    -- 根据显示信息级别显示
-
-    if level <= gScreenMsgLevel then
-        acDisplayText(msg, "微软雅黑", 40, 255, 128, 0, delay, tx, ty)
-    end
+function aGetAncestor(iWnd, iFlags)
+    return gGetAncestor(iWnd, iFlags)
 end
 
 function sp_before_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
@@ -96,9 +51,7 @@ function sp_before_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
     acActivateWindow(aGetAncestor(acGetWindowByPoint(gsx, gsy), GA_ROOT), 0, 0)
 end
 
-function aGetAncestor(iWnd, iFlags)
-    return gGetAncestor(iWnd, iFlags)
-end
+
 
 function sp_after_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
     -- this code is executed after each action (excluding hotkey actions)

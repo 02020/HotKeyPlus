@@ -3,19 +3,19 @@
 ------------------------------------------------------ 向上
 funUp={}
 function funUp:top(  )
-    gShowScreenMessage("t", 1,cur.gsx, cur.gsy)
+    display_message("t", 1,cur.gsx, cur.gsy)
 end
 
 function funUp:right(  )
-    gShowScreenMessage("r", 1,cur.gsx, cur.gsy)
+    display_message("r", 1,cur.gsx, cur.gsy)
 end
 
 function funUp:left(  )
-    gShowScreenMessage("l", 1,cur.gsx, cur.gsy)
+    display_message("l", 1,cur.gsx, cur.gsy)
 end
 
 function funUp:bottom(  )
-    gShowScreenMessage("b", 1,cur.gsx, cur.gsy)
+    display_message("b")
 end
 function funUp:mid( )
     qGetHandleID()
@@ -26,24 +26,24 @@ end
 ------------------------------------------------------ 向下
 funDown={}
 function funDown:top(  )
-    gShowScreenMessage("re", 1, gsx, gsy)
+    display_message("re", 1, gsx, gsy)
     acSendKeys("{F_5}")
 end
 
 function funDown:right(  )
-    gShowScreenMessage("r", 1,cur.gsx, cur.gsy)
+    display_message("r", 1,cur.gsx, cur.gsy)
 end
 
 function funDown:left(  )
-    gShowScreenMessage("l", 1,cur.gsx, cur.gsy)
+    display_message("l", 1,cur.gsx, cur.gsy)
 end
 
 function funDown:bottom(  )
-    gShowScreenMessage("select all", 1, gsx, gsy)
+    display_message("select all", 1, gsx, gsy)
         acSendKeys("^a")
 end
 function funDown:mid(  )
-    gShowScreenMessage("ctrl+v", 2, gsx, gsy)
+    display_message("ctrl+v", 2, gsx, gsy)
     acSendKeys("^v")
 end
 
@@ -52,32 +52,32 @@ end
 funRight={}
 funRightV={}
 function funRight:top(  )
-    gShowScreenMessage("re", 1, gsx, gsy)
+    display_message("re", 1, gsx, gsy)
     acSendKeys("{F_5}")
 end
 
 function funRightV:A()
-    qActivateWindow("notepad")    
+    activate_window("notepad")    
 end
 function funRightV:B()
-    qActivateWindow("vs")
+    activate_window("vs")
 end
 function funRightV:C()
-    qActivateWindow("vscode")    
+    activate_window("vscode")    
 end
 function funRightV:D()
 end
 function funRight:right()
-   local x =  lGetMousePositionV()
+   local x =  get_mouse_position_v()
    funRightV[x]()
 end
 
 function funRight:left(  )
-    gShowScreenMessage("l", 1,cur.gsx, cur.gsy)
+    display_message("l", 1,cur.gsx, cur.gsy)
 end
 
 function funRight:bottom(  )
-    gShowScreenMessage("select all", 1, gsx, gsy)
+    display_message("select all", 1, gsx, gsy)
         acSendKeys("^a")
 end
 function funRight:mid(  )
@@ -90,7 +90,7 @@ end
 -- 撤销 退格
 funLeft={}
 function funLeft:top(  )
-    gShowScreenMessage("撤消", 1, gsx, gsy)
+    display_message("撤消", 1, gsx, gsy)
     acSendKeys("^z")
 end
 
@@ -101,11 +101,11 @@ function funLeft:right(  )
 end
 
 function funLeft:left(  )
-    gShowScreenMessage("l", 1,cur.gsx, cur.gsy)
+    display_message("l", 1,cur.gsx, cur.gsy)
 end
 
 function funLeft:bottom(  )
-    gShowScreenMessage("退格", 2, gsx, gsy)
+    display_message("退格", 2, gsx, gsy)
     acSendKeys("{BACKSPACE}")
 end
 function funLeft:mid(  )
@@ -116,19 +116,19 @@ end
 
 
 function qUp()
-    funUp[lGetMousePosition()]();
+    funUp[get_mouse_position_h()]();
  end
  
  function qDown()
-     funUp[lGetMousePosition()]();
+     funUp[get_mouse_position_h()]();
  end
  
 function qLeft()
-    funLeft[lGetMousePosition()]();
+    funLeft[get_mouse_position_h()]();
  end
  
  function qRight()
-     funRight[lGetMousePosition()]();
+     funRight[get_mouse_position_h()]();
  end
  
 
