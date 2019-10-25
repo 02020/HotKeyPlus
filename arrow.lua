@@ -18,16 +18,21 @@ function funUp:bottom(  )
     display_message("b")
 end
 function funUp:mid( )
-    qGetHandleID()
+  -- qGetHandleID()
     --显示窗体
-    acShowActions()
+    acSendKeys("@g")
+  --activate_window("rolan")    
+  --local hwnd = get_handle_window("rolan");
+--   hwnd =1530174
+--  name =  acGetClassName(hwnd) 
+--  acMessageBox(name)
 end
 
 ------------------------------------------------------ 向下
 funDown={}
 function funDown:top(  )
     display_message("re", 1, gsx, gsy)
-    acSendKeys("{F_5}")
+    --acSendKeys("{F_5}")
 end
 
 function funDown:right(  )
@@ -40,11 +45,11 @@ end
 
 function funDown:bottom(  )
     display_message("select all", 1, gsx, gsy)
-        acSendKeys("^a")
+     --   acSendKeys("^a")
 end
 function funDown:mid(  )
     display_message("ctrl+v", 2, gsx, gsy)
-    acSendKeys("^v")
+  --  acSendKeys("^v")
 end
 
 ------------------------------------------------------ 向右
@@ -53,7 +58,7 @@ funRight={}
 funRightV={}
 function funRight:top(  )
     display_message("re", 1, gsx, gsy)
-    acSendKeys("{F_5}")
+  --  acSendKeys("{F_5}")
 end
 
 function funRightV:A()
@@ -66,11 +71,14 @@ function funRightV:C()
     activate_window("vscode")    
 end
 function funRightV:D()
+
 end
 function funRight:right()
    local x =  get_mouse_position_v()
    funRightV[x]()
 end
+
+
 
 function funRight:left(  )
     display_message("l", 1,cur.gsx, cur.gsy)
@@ -78,7 +86,7 @@ end
 
 function funRight:bottom(  )
     display_message("select all", 1, gsx, gsy)
-        acSendKeys("^a")
+    --    acSendKeys("^a")
 end
 function funRight:mid(  )
     qExecuteToogle()
@@ -90,7 +98,7 @@ end
 -- 撤销 退格
 funLeft={}
 function funLeft:top(  )
-    display_message("撤消", 1, gsx, gsy)
+    display_message("ctrl + z", 1, gsx, gsy)
     acSendKeys("^z")
 end
 
@@ -105,15 +113,15 @@ function funLeft:left(  )
 end
 
 function funLeft:bottom(  )
-    display_message("退格", 2, gsx, gsy)
-    acSendKeys("{BACKSPACE}")
+   -- display_message("BACKSPACE", 2, gsx, gsy)
+   -- acSendKeys("{BACKSPACE}")
 end
 function funLeft:mid(  )
  
 end
 
 
-
+------------------------------------------------------ 
 
 function qUp()
     funUp[get_mouse_position_h()]();

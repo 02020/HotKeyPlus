@@ -9,20 +9,28 @@ function get_desktop_size()
     return t, b, l, r
 end
 
+function get_window_size()
+    local t = acGetWindowTop(nil, cur.gex, cur.gey)
+    local b = acGetWindowBottom(nil, cur.gex, cur.gey)
+    local l = acGetWindowLeft(nil, cur.gex, cur.gey)
+    local r = acGetWindowRight(nil, cur.gex, cur.gey)
+    return t, b, l, r
+end
+
 -- 当前鼠标位置-水平方向
 -- @return  r l t b m
 function get_mouse_position_h()
     t, b, l, r = get_desktop_size()
-    if cur.gex > (r - gLeftRightMargin) then
+    if cur.gex > (r - DESKTOP_RIGHT) then
         -- 右侧 400
         return "right"
-    elseif cur.gex < (gLeftRightMargin - l) then
-        -- 右侧 400
+    elseif cur.gex < (DESKTOP_LEFT - l) then
+        -- 左侧 400
         return "left"
-    elseif cur.gsy < (t + gTopBottomMargin) then
+    elseif cur.gsy < (t + DESKTOP_TOP) then
         -- 顶部
         return "top"
-    elseif cur.gey > (b - gTopBottomMargin) then
+    elseif cur.gey > (b - DESKTOP_BOTTOM) then
         -- 底部
         return "bottom"
     else
@@ -46,7 +54,7 @@ function get_mouse_position_v()
 end
 
 -- 根据类名获得句柄，遍历当前打开的窗体
--- param 类名
+-- param 类名dd
 -- @return 句柄
 function get_handle_windows(className)
     acGetAllWindows(1)
@@ -56,19 +64,22 @@ function get_handle_windows(className)
     for k, v in pairs(allwindows) do
         local name = acGetClassName(v, 0, 0)
         if string.find(name, "Window") == nil then
-            temp = temp .. " " .. name .. ":" .. v
+            temp = temp .. "\n" .. name .. ":" .. v
         end
         local r = string.find(name, className)
         if r ~= nil then
             hwnd = v
         end
     end
-    -- acMessageBox(temp)
+    --  acMessageBox(temp)
     return hwnd
 end
 
+-- 根据类名获取句柄
+-- @param className
+-- @return 句柄
 function get_handle_window(name)
-    if name == nil then
+    if name == nil or name=="" then
         error("name is empty")
         return
     end
@@ -87,8 +98,12 @@ function get_handle_window(name)
 
     local w = win.hwnd
     if w == 0 or w == nil then
-        --acMessageBox(win.className)
-        w = acFindWindow(win.className, nil)
+        if win.file ~= nil then
+            w = get_handle_file(win.file)
+        else
+            w = acFindWindow(win.className, nil)
+        end
+
         if w == 0 then
             w = get_handle_windows(win.className)
         end
@@ -103,14 +118,28 @@ function get_handle_window(name)
     end
 end
 
+-- 根据任务管理器中的[名称],返回句柄
+function get_handle_file(file)
+    local processID = acGetProcessIDFromPattern(file)
+    return acGetWindowFromProcessID(processID)
+end
+
 -- 激活窗体
-function activate_window_by_handle(w)
-    acRestoreWindow(w, 0, 0)
-    acActivateWindow(w, 0, 0, 0)
+function activate_window_by_handle(hwnd)
+    if hwnd == 0 or acGetClassName(hwnd) == "" then
+        acMessageBox("handle error " .. hwnd)
+    end
+    acRestoreWindow(hwnd, 0, 0)
+    acActivateWindow(hwnd, 0, 0, 0)
 end
 
 function activate_window(name)
+    display_message(name)
     activate_window_by_handle(get_handle_window(name))
+end
+
+function activate_window_by_file(file)
+    activate_window_by_handle(get_handle_file(name))
 end
 
 -- 在屏幕显示信息
@@ -143,5 +172,5 @@ function display_message(msg)
         y = b / 2 - charwd * 2
     end
 
-    acDisplayText(msg, "微软雅黑", 40, 255, 128, 0, delay, x, y)
+    acDisplayText(msg, FONT, 32, 255, 128, 0, delay, x, y)
 end

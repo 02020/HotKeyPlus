@@ -3,7 +3,7 @@
 StrokesPlus.lua 文件格式需要处理 git 支持 UTF-8 格式 
 文件尾部空格要删除
 
-
+firefox.exe|iexplore.exe|opera.exe|360se.exe|vivaldi.exe
 
 `acGetWindowByPoint`  只能写在程序中
 
@@ -14,6 +14,11 @@ StrokesPlus.lua 文件格式需要处理 git 支持 UTF-8 格式
 `className` 固定，使用acFindWindow方法，无法返回数据
 列表：google, vivaldi, vscode 
 
+
+
+``` 代码暂存
+(\[\d*\] )*Total Commander .*|.* - Eclipse
+```
 
 
 #### 浏览器

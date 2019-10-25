@@ -99,13 +99,15 @@ return
 
 
 ;------------- notepad++记事本
-!q::
+#q::
 MButton & q::
   global LastActiveWinId_notepad
   Switch_BackForth("ahk_exe notepad++.exe"
                  , "C:\Program Files\Notepad++\notepad++.exe"
                  , LastActiveWinId_notepad)
 return
+
+ 
 
 
 ;----------------------------------------------------- 浏览器
@@ -196,7 +198,7 @@ return
 
 
 ;; reload currently used script
-+^!r::
++^!p::
   MsgBox, Script __%A_ScriptFullPath%__ will be reloaded
   Reload_CurrentScript()
 return

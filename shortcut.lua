@@ -1,6 +1,7 @@
 --- 快速打开 Tim
 function ggTim()
-    activate_window(sWinTim)
+    acSendKeys("^+T")
+    -- activate_window(sWinTim)
 end
 
 --- 快速打开 微信
@@ -53,12 +54,8 @@ end
 ------------------------------------------------------ vs
 -- 粘贴内容到[解决方案管理器]中执行查询
 function qvsFindFile()
-    acSendKeys("^%l")
-    acDelay(100)
-    acMouseClick(1200, 140, 2, 1, 1)
+    acSendKeys("^;") 
     acSendKeys("^v")
     acDelay(50)
     acSendKeys("{ENTER}")
-    acDelay(50)
-    acMouseMove(cur.gsx, cur.gsy)
 end
