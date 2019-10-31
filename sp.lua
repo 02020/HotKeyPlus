@@ -22,11 +22,8 @@ GA_ROOTOWNER = 3
 
 function sp_init()
     -- code in this function is fired once when the Lua engine is reloaded
-
     -- which occurs when S+ is started, Ok/Apply is clicked in the settings window
-
     -- or when Reload Config and Lua Engine is clicked from the tray menu
-
 end
 
 function aGetAncestor(iWnd, iFlags)
@@ -40,8 +37,6 @@ function sp_before_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
 
     acActivateWindow(aGetAncestor(acGetWindowByPoint(gsx, gsy), GA_ROOT), 0, 0)
 end
-
-
 
 function sp_after_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
     -- this code is executed after each action (excluding hotkey actions)

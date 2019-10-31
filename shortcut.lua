@@ -11,9 +11,11 @@ end
 
 --- 获取当前窗体-句柄ID
 function qGetHandleID()
-    id = acGetWindowByPoint(cur.gsx, cur.gsy)
-    display_message(id, 1, cur.gsx, cur.gsy)
-    acSetClipboardText(id)
+    local w = acGetWindowByPoint(cur.gsx, cur.gsy)
+    local name = acGetClassName(w)
+    local s = "name:" .. name .. "\n hwnd:" .. w
+    display_message(s)
+    acSetClipboardText(s)
 end
 --- 获取当前窗体-类名
 function qGetHandleClass()
@@ -24,18 +26,16 @@ function qGetHandleClass()
 end
 
 function dddd()
-  --  acSendKeys("^v")
-  acMouseClick(cur.gex, cur.gey, 2, 1, 1)
-  acSendKeys("{F_2}")
-  acDelay(10)
-  acSendKeys("^c")
-  local  v = acGetClipboardText()
-  display_message(v, 1,cur.gsx, cur.gsy)
+    --  acSendKeys("^v")
+    acMouseClick(cur.gex, cur.gey, 2, 1, 1)
+    acSendKeys("{F_2}")
+    acDelay(10)
+    acSendKeys("^c")
+    local v = acGetClipboardText()
+    display_message(v, 1, cur.gsx, cur.gsy)
 
-  acSendKeys("{ENTER}")
+    acSendKeys("{ENTER}")
 end
-
-
 
 function d()
     acSendKeys("^c")
@@ -49,13 +49,27 @@ function d()
     acSendKeys("{DELAY=50}%{ENTER}")
 end
 
-
-
 ------------------------------------------------------ vs
 -- 粘贴内容到[解决方案管理器]中执行查询
 function qvsFindFile()
-    acSendKeys("^;") 
+    acSendKeys("^;")
     acSendKeys("^v")
     acDelay(50)
+    acSendKeys("{ENTER}")
+end
+
+function qvsFindFileC()
+    acSendKeys("^c")
+    local suffix = acGetClipboardText() .. "Controller.cs"
+    acSetClipboardText(suffix)
+    qvsFindFile()
+    acSendKeys("{ENTER}")
+end
+
+function qvsFindFileS()
+    acSendKeys("^c")
+    acDelay(50)
+    acSendKeys("^+f")
+    acSendKeys("^v")
     acSendKeys("{ENTER}")
 end

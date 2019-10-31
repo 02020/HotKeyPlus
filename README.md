@@ -7,6 +7,48 @@ firefox.exe|iexplore.exe|opera.exe|360se.exe|vivaldi.exe
 
 `acGetWindowByPoint`  只能写在程序中
 
+### 常用函数
+
+`acGetClipboardText`
+`acSetClipboardText`
+`acGetForegroundWindow` 获取当前窗体
+
+`acKillDisplayText`
+`acMaximizeWindow`
+`acMaximizeOrRestoreWindow`
+
+`acNextApplication`   不生效
+`acPreviousApplication`
+
+`acFindWindowByTitleRegex`
+`acFindWindow`
+
+`acFitWindowToScreen`
+``
+
+`acGetAllWindows`
+``
+``
+`acGetClassName`
+``
+``
+``
+``
+``
+``
+``
+``
+``
+``
+``
+``
+``
+``
+``
+``
+
+
+
 几种情况
 `className` 不固定，可以使用acFindWindow方法
 列表：vs
@@ -39,8 +81,8 @@ acSendAltDown()和acSendAltUp()      Alt键
 acSendShiftDown和acSendShiftUp()   Shift键 
 acSendWinDown()和acSendWinUp()   Windows键 
 
-
-
+acSendKeys("{DELAY 5000}")
+acRunProgram
 
 在S+中，是这样表示一些特殊按键的。 
 下面是对照表： 

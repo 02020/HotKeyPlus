@@ -22,6 +22,23 @@ function qExecuteToogle()
     end
 
     local code = sWindow[iWindow]
-
+log(code)
     activate_window(code)
+end
+
+-- 执行窗口定位：根据配置文件
+function execute_position()
+    iWindow = iWindow + 1
+
+    local win = get_config_current()
+    if win ~= nil and win.position ~= nil then
+        local posList = win.position
+
+        if iWindow > #posList then
+            iWindow = 1
+        end
+        local pos = posList[iWindow]
+        acMoveWindow(win.hwnd, 0, 0, pos.x, pos.y)
+        acSetWindowSize(win.hwnd, pos.x, pos.y, pos.w, pos.h) --100%
+    end
 end

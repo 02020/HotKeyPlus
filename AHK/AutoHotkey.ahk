@@ -238,7 +238,7 @@ return
 
 
 ;; switch to the next/prev window of the __same class__
-+!n::
+^+!n::
   WinGetClass, winClass, A
   /*
   WinSet, Bottom,, A
@@ -255,7 +255,7 @@ return
 return
 
 
-+!p::
+^+!o::
   WinGetClass, winClass, A
   WinGet, winList, List, ahk_class %winClass%
   if (winList > 1) {
