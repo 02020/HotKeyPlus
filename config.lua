@@ -93,7 +93,11 @@ tWindow = {
     navicat = {
         file = "navicat.exe",
         className = "TNavicatMainForm",
-        path = "C:\\Program Files\\PremiumSoft\\Navicat Premium 12\\navicat.exe"
+        path = "C:\\Program Files\\PremiumSoft\\Navicat Premium 12\\navicat.exe",
+        position = {
+            {x = 0, y = 0, w = 900, h = 1080},
+            {x = 0, y = 0, w = 1000, h = 1080}
+        }
     },
     doc = {
         title = "Word",
@@ -110,7 +114,12 @@ tWindow = {
         type = 1
     },
     pd = {
-        title = "PowerDesigner"
+        title = "PowerDesigner",
+        file = "PdShell16.exe",
+        exit = "%{F_4}",
+        position = {
+            {x = 1800, y = 0, w = 700, h = 1080}
+        }
     }
 }
 
