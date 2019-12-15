@@ -21,25 +21,25 @@ global CLUserKeys:={}
 CLSets.length:={} ;保存settings.ini中每个字段的关键词数量
 sectionValue:="Keys"
 
-  IniRead, settingsKeys, CapsLockPlusSettings.ini, %sectionValue%, , %A_Space%
-    settingsKeys:=RegExReplace(settingsKeys, "m`n)=.*$")
-    keyArr:=StrSplit(settingsKeys,"`n")
-      tempLen:=CLSets.length[sectionValue]
-    if tempLen is not number ;如果还没初始化过
+IniRead, settingsKeys, CapsLockPlusSettings.ini, %sectionValue%, , %A_Space%
+settingsKeys:=RegExReplace(settingsKeys, "m`n)=.*$")
+keyArr:=StrSplit(settingsKeys,"`n")
+    tempLen:=CLSets.length[sectionValue]
+if tempLen is not number ;如果还没初始化过
+{
+    CLSets[sectionValue]:={}
+    _clsetsSec:=CLSets[sectionValue]
+    CLSets.length[sectionValue]:=0
+    
+    for key,keyValue in keyArr
     {
-        CLSets[sectionValue]:={}
-        _clsetsSec:=CLSets[sectionValue]
-        CLSets.length[sectionValue]:=0
-        
-        for key,keyValue in keyArr
-        {
-            IniRead, setValue, CapsLockPlusSettings.ini, %sectionValue%, %keyValue%, %A_Space%
+        IniRead, setValue, CapsLockPlusSettings.ini, %sectionValue%, %keyValue%, %A_Space%
 
-            _clsetsSec[keyValue]:=setValue
-                CLUserKeys[keyValue]:=setValue
-            CLSets.length[sectionValue]++
-        }
+        _clsetsSec[keyValue]:=setValue
+            CLUserKeys[keyValue]:=setValue
+        CLSets.length[sectionValue]++
     }
+}
 
 gosub, bindWinsInit
 
@@ -100,6 +100,62 @@ setCapsLock2:
 CapsLock2:=""
 return
 
+#if GetKeyState("MButton", "P")
+{
+    a::
+    b::
+    c::
+    d::
+    e::
+    f::
+    g::
+    h::
+    i::
+    j::
+    k::
+    l::
+    n::
+    m::
+    o::
+    p::
+    q::
+    r::
+    s::
+    t::
+    u::
+    v::
+    w::
+    x::
+    y::
+    z::
+    1::
+    2::
+    3::
+    4::
+    5::
+    6::
+    7::
+    8::
+    9::
+    0::
+    f1::
+    f2::
+    f3::
+    f4::
+    f5::
+    f6::
+    f7::
+    f8::
+    f9::
+    f10::
+    f11::
+    f12::
+    try       
+        runFunc(keyset["caps_" . A_ThisHotkey])
+    Capslock2:=""
+    Return
+}
+return
 
 ;----------------------------keys-set-start-----------------------------
 

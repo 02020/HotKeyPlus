@@ -57,7 +57,7 @@ end
 
 function qSignX()
     display_message("X")
-    acDisableNext()
+   --acDisableNext()
 end
 
 
