@@ -17,11 +17,12 @@ function qGetHandleID()
     display_message(s)
     acSetClipboardText(s)
 end
+
 --- 获取当前窗体-类名
 function qGetHandleClass()
     id = acGetWindowByPoint(cur.gsx, cur.gsy)
     w = acGetClassName(id, cur.gsx, cur.gsy)
-    display_message(w, 1)
+    display_message(w)
     acSetClipboardText(w)
 end
 
@@ -52,10 +53,10 @@ end
 ------------------------------------------------------ vs
 -- 粘贴内容到[解决方案管理器]中执行查询
 function qvsFindFile()
-    acSendKeys("^;")
+    acSendKeys("^{DELAY=50};")
     acSendKeys("^v")
     acDelay(50)
-    acSendKeys("{ENTER}")
+    acSendKeys("{ENTER}{DELAY=200}{ENTER}")
 end
 
 function qvsFindFileC()

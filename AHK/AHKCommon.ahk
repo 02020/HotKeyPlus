@@ -22,17 +22,20 @@ Get_LastActiveWinId() {
 }
 
 ;; partially work with metro windows
-Switch_BackForth(WinTitle, AppPath, ByRef LastWinId) {
-  ; MsgBox, LastWinId is %LastWinId%
+Switch_BackForth0(WinTitle, AppPath, ByRef LastWinId) {
+   ; MsgBox, LastWinId is %LastWinId%
   IfWinExist %WinTitle%
   {
     IfWinActive %WinTitle%
     {
+      ;;如果当前窗口处于激活状态
+      WinGet, LastWinId, ID, %WinTitle%
+      WinMinimize, ahk_id  %LastWinId%
       if (LastWinId == "")
       {
         LastWinId := Get_LastActiveWinId()
       }
-
+      
       ;; workaround for the start screen
       ;; but is is ugly, emulate win key is not a good idea in all cases
       WinGetClass, LastWinClass, ahk_id %LastWinId%
@@ -41,13 +44,14 @@ Switch_BackForth(WinTitle, AppPath, ByRef LastWinId) {
         ;; blocked if Ctrl or Alt is pressed (??)
         KeyWait Alt  ;; ugly
         KeyWait Ctrl ;; ugly
-        SendEvent {RWin}
-      } else {
-        WinActivate ahk_id %LastWinId%
+        SendEvent {RWin} 
+      } else {     
+       ;  WinActivate ahk_id %LastWinId%      
       }
     }
     else
     {
+      ;; 激活窗口
       WinGet, LastWinId, ID, A
       WinActivate
     }
@@ -58,6 +62,34 @@ Switch_BackForth(WinTitle, AppPath, ByRef LastWinId) {
     Run %AppPath%
   }
 }
+
+;;打开或者隐藏窗口
+Switch_BackForth(WinTitle, AppPath, ByRef LastWinId) {
+   ; MsgBox, LastWinId is %LastWinId%
+  IfWinExist %WinTitle%
+  {
+    IfWinActive %WinTitle%
+    {
+      ;;如果当前窗口处于激活状态
+      WinGet, LastWinId, ID, %WinTitle%
+      WinMinimize, ahk_id  %LastWinId%
+    }
+    else
+    {
+      ;; 激活窗口
+      WinGet, LastWinId, ID, A
+      WinActivate
+    }
+  }
+  else
+  {
+    WinGet, LastWinId, ID, A
+    Run %AppPath%
+  }
+}
+
+ 
+
 
 Inspect_ActiveWindow() {
   WinGet, id, ID, A

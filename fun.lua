@@ -22,7 +22,7 @@ function qExecuteToogle()
     end
 
     local code = sWindow[iWindow]
-log(code)
+    log(code)
     activate_window(code)
 end
 
@@ -30,7 +30,7 @@ end
 function execute_position()
     iWindow = iWindow + 1
 
-    local win = get_config_current()
+    local win = get_config()
     if win ~= nil and win.position ~= nil then
         local posList = win.position
 
@@ -41,4 +41,20 @@ function execute_position()
         acMoveWindow(win.hwnd, 0, 0, pos.x, pos.y)
         acSetWindowSize(win.hwnd, pos.x, pos.y, pos.w, pos.h) --100%
     end
+end
+
+-- 获取当前窗口信息
+
+function get_info()
+    local hwnd = acGetForegroundWindow()
+    local s =
+        "title:" ..
+        acGetWindowTitle(hwnd) ..
+            "\nclassName:" ..
+                acGetClassName(hwnd) ..
+                    "\nid:" .. hwnd .. -- acGetControlID(hwnd) ..
+                            "\nname:" .. acGetExecutableName(hwnd)
+    -- "path"..   acGetExecutablePath(hwnd)
+
+    return s
 end

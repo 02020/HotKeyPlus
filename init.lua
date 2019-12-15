@@ -26,7 +26,7 @@ require("sign")
 require("shortcut")
 
 tWindowFile = {}
-
+tWindowToogle= {}
 for key, value in pairs(tWindow) do
     if value.file then
         if tWindowFile[value.file] ~= nil then

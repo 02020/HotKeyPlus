@@ -34,7 +34,6 @@ function sp_before_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
     -- this code is fired before each action (excluding hotkey actions)
 
     -- 先激活手势开始时所在窗口
-
     acActivateWindow(aGetAncestor(acGetWindowByPoint(gsx, gsy), GA_ROOT), 0, 0)
 end
 

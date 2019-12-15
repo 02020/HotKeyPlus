@@ -1,82 +1,119 @@
-------------------------------------------------------Ctrl 上
-qCtrl = {}
+------------------------------------------------------Ctrl
 
+qCtrl = {}
+------------------------------------------------------Ctrl 上
 function qCtrl:Up()
-    qGetHandleID()
-    --  funUp[get_mouse_position_h()]()
+    ggTim()
 end
 
 ------------------------------------------------------Ctrl 下
 function qCtrl:Down()
-    --clip()
-    --activate_window(132952)
-
-    -- v = acFindWindowByTitleRegex("[Visual%sStudio%sCode]+")
-    -- pair = "name = Anna"
-    -- firstidx, lastidx, key, value = string.find(pair, "(%a+)%s*=%s*(%a+)")
-    local position = is_config("vs").position
-    x, y, w, h = position[1]
-    display_message(position[1][1].. position[2][1].. position[3][1])
-    --v= string.match('arrowPlus.lua - lua - Visual Studio Code [管理员]:133012', '[Visual Studio Code]+')
-    --display_message(firstidx.. "+".. lastidx.. "+".. key.. "+".. value )
-    --funUp[get_mouse_position_h()]()
+    ggwx()
 end
 ------------------------------------------------------Ctrl 左
 function qCtrl:Left()
     display_message("Ctrl:Left")
-    execute_position() 
 end
 ------------------------------------------------------Ctrl 右
 function qCtrl:Right()
-    --funRight[get_mouse_position_h()]()
-
     display_message("Ctrl:Right")
-    --  acSendKeys("^{F_6}")
 
-    -- test2()
-    local temp = get_handles_all(1)
-    acSetClipboardText(temp)
+    t, b, l, r = get_window_size()
+    if cur.gey < (t + 40) and cur.gey > t then
+        display_message("Ctrl:Right:title")
+
+
+        local win = get_config()
+        local w = {}
+        if win ~= nil and win.title ~= nil then
+            -- clip()
+            -- PrintTable(w)
+            w = get_handles(win.title)
+            local i = #tWindowToogle + 1
+            for k, v in pairs(w) do
+                tWindowToogle[i] = v
+                i = i + 1
+            end
+        else
+            display_message("funArrow:title is null")
+        end
+    else
+        local temp = get_handles_all(1)
+        acSetClipboardText(temp)
+    end
 end
 
-------------------------------------------------------Shift 上
+------------------------------------------------------
+
+------------------------------------------------------Shift
+
 qShift = {}
+------------------------------------------------------Shift 上
 
 function qShift:Up()
-    funUp[get_mouse_position_h()]()
+    display_message("Shift:Up")
 end
 
+------------------------------------------------------Shift 下
 function qShift:Down()
-    funUp[get_mouse_position_h()]()
+    display_message("Shift:Down")
 end
 
+------------------------------------------------------Shift 左
 function qShift:Left()
     display_message("Shift:Left")
-    --  funLeft[get_mouse_position_h()]()
 end
 
+------------------------------------------------------Shift 右
 function qShift:Right()
-    display_message("right")
+    display_message("Shift:right")
 end
 
-function test2()
-    -- 获取当前
-    local name = acGetExecutableName(acGetForegroundWindow())
-    local win = tWindowFile[name]
-    local v = win.title
-    local handles = get_handles(v)
-    local temp = get_handles_name_same_class(v, 1)
+------------------------------------------------------
 
-    acSetClipboardText(temp)
-    iWindow = iWindow + 1
-    if iWindow > #handles then
-        iWindow = 1
-    end
+------------------------------------------------------Alt
 
-    local code = handles[iWindow]
-    local a = acGetExecutableName(code)
-    display_message(a)
-    activate_window(code)
+qAlt = {}
+------------------------------------------------------Alt 上
+
+function qAlt:Up()
+    display_message("Alt:Up")
+end
+------------------------------------------------------Alt 下
+function qAlt:Down()
+    display_message("Alt:Down")
+end
+------------------------------------------------------Alt 左
+function qAlt:Left()
+    display_message("Alt:Left")
+end
+------------------------------------------------------Alt 右
+function qShift:Right()
+    qAlt("Alt:right")
 end
 
--- HwndWrapper
--- Chrome_RenderWidgetHostHWND
+------------------------------------------------------
+
+------------------------------------------------------CtrlShift
+
+qCtrlShift = {}
+------------------------------------------------------CtrlShift 上
+function qCtrlShift:Up()
+    qGetHandleID()
+end
+
+------------------------------------------------------CtrlShift 下
+function qCtrlShift:Down()
+end
+------------------------------------------------------CtrlShift 左
+function qCtrlShift:Left()
+    display_message("Ctrl:Left")
+    execute_position()
+end
+------------------------------------------------------CtrlShift 右
+function qCtrlShift:Right()
+    display_message("Ctrl:Right")
+            local temp = get_info()
+        display_message(temp)
+        acSetClipboardText(temp)
+end

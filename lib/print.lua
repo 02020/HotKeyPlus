@@ -3,7 +3,7 @@ function clip(param)
         acSetClipboardText()
     elseif param == "__" then
     else
-        param = param .. "\n" .. acGetClipboardText()
+        param =  acGetClipboardText() .. param .. "\n"
         acSetClipboardText(param)
     end
     return param
@@ -91,7 +91,7 @@ function PrintTable(tbl, level, filteDefault)
                     tostring(k),
                     tostring(v)
                 )
-                print(item_str)
+                clip(item_str)
                 if type(v) == "table" then
                     PrintTable(v, level + 1)
                 end
@@ -104,7 +104,7 @@ function PrintTable(tbl, level, filteDefault)
                 tostring(k),
                 tostring(v)
             )
-            print(item_str)
+            clip(item_str)
             if type(v) == "table" then
                 PrintTable(v, level + 1)
             end

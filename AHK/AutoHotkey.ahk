@@ -7,14 +7,15 @@
 #SingleInstance Force
 
 ;; Default working dir is c:\windows\system32
-#Include %A_ScriptDir%
+;#Include %A_ScriptDir%
 #Include AHKCommon.ahk
-#Include AHKCursor.ahk
+;; #Include AHKCursor.ahk
 
-
+#Include CapsLockPlus.ahk
 SetWorkingDir, D:\dev\workspace
 ;; End of Auto Execution Section
 return
+
 
 
 ;; In Case LCtl and CapLock are not switched
@@ -23,10 +24,11 @@ return
 ;; ------------------
 
 
-^!j::
-  LastWinId := Get_LastActiveWinId()
-  WinActivate, ahk_id %lastWinId%
-return
+;激活上一个窗口
+;^!j::
+; LastWinId := Get_LastActiveWinId()
+;  WinActivate, ahk_id %lastWinId%
+;return
 
 
 ; ^!t::
@@ -59,7 +61,7 @@ return
 ;----------------------------------------------------- 编辑器
 
 ;------------- OneNote
-^!n::
+^!o::
   global LastActiveWinId_OneNote
   Switch_BackForth("ahk_class Framework::CFrame"
                  , "onenote"
@@ -67,15 +69,23 @@ return
 return
 
 
-
+MButton & 3::
+  global LastActiveWinId_360
+  Switch_BackForth("ahk_class 360se.exe"
+                 , "C:\Users\lol\AppData\Roaming\360se6\Application\360se.exe"
+                 , LastActiveWinId_wiz)
+return
 ;------------- 为知
-;#w::
+
+
 MButton & w::
   global LastActiveWinId_wiz
   Switch_BackForth("ahk_class WizNoteMainFrame"
                  , "C:\Program Files (x86)\WizNote\Wiz.exe"
                  , LastActiveWinId_wiz)
 return
+
+
 
 
 ;------------- vs
@@ -89,7 +99,7 @@ return
 
 
 ;------------- vscode
-^!c::
+#c::
 MButton & c::
   global LastActiveWinId_Code
   Switch_BackForth("ahk_exe Code.exe"
@@ -97,6 +107,13 @@ MButton & c::
                  , LastActiveWinId_Code)
 return
 
+;------------- java IDEA
+MButton & a::
+  global LastActiveWinId_idea64
+  Switch_BackForth("ahk_exe idea64.exe"
+                 , "C:\Program Files\JetBrains\IntelliJ IDEA 2019.2\bin\idea64.exe"
+                 , LastActiveWinId_idea64)
+return
 
 ;------------- notepad++记事本
 #q::
@@ -107,14 +124,18 @@ MButton & q::
                  , LastActiveWinId_notepad)
 return
 
- 
-
+;------------- sublime_text
+MButton & s::
+  global LastActiveWinId_sublime
+  Switch_BackForth("ahk_exe sublime_text.exe"
+                 , "D:\Program\Sublime Text\sublime_text.exe"
+                 , LastActiveWinId_sublime)
+return
 
 ;----------------------------------------------------- 浏览器
 
 ;------------- 谷歌
-#b::
-MButton & b::
+MButton & g::
   global LastActiveWinId_Chrome
   Switch_BackForth("ahk_exe chrome.exe"
                  , "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
@@ -142,7 +163,6 @@ MButton & p::
 return
 
 ;------------- Directory Opus
-;#d::
 MButton & d::
   global LastActiveWinId_Dopus
   Switch_BackForth("ahk_exe dopus.exe"
@@ -151,7 +171,6 @@ MButton & d::
 return
 
 ;------------- 数据库Navicat
-#n::
 MButton & n::
   global LastActiveWinId_Navicat
   Switch_BackForth("ahk_exe navicat.exe"
@@ -159,6 +178,14 @@ MButton & n::
                  , LastActiveWinId_Navicat)
 return
 
+
+;------------- 数据库Navicat
+MButton & m::
+  global LastActiveWinId_myBase
+  Switch_BackForth("ahk_exe myBase.exe"
+                 , "D:\Program\nyfedit7pro\myBase.exe"
+                 , LastActiveWinId_myBase)
+return
 
 
 ;------------- 切换窗体
@@ -180,22 +207,12 @@ MButton & k::
   Toggle_Windows_Set(CurrentWinId)
 return
 
-;#g::
-MButton & g::
-  Toggle_Windows()
-return
-
-
 +^!f::
   ;; Buggy
   Toggle_FullScreen()
 return
 
-;------------- 显示当前时间
-^!o::
-  Show_InfoBoard()
-return
-
+;; Show_InfoBoard()
 
 ;; reload currently used script
 +^!p::

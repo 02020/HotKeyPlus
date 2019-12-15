@@ -16,7 +16,7 @@ end
 
 function funUp:bottom()
     display_message("b")
-    tip("0asdfasdfasdfasdfasasdfasdfasdfasdfasasdfasdfasdfasdfasasdfasdfasdfasdfasasdfasdfasdfasdfasasdfasdfasdfasdfas")
+    tip("s")
 end
 
 function funUp:mid()
@@ -24,8 +24,8 @@ function funUp:mid()
     display_message("mid")
     --   acSendKeys("+%q")
     acSendKeys("@g{DELAY 50}q")
-    acDelay(100)
-    acMouseMove(cur.gex + 180, cur.gey + 40)
+   -- acDelay(100)
+   -- acMouseMove(cur.gex + 180, cur.gey + 40)
 end
 
 ------------------------------------------------------ 向下
@@ -45,14 +45,11 @@ end
 
 function funDown:bottom()
     display_message("down:bottom")
-
 end
 function funDown:mid()
     display_message("ctrl+v", 2, gsx, gsy)
     --  acSendKeys("^v")
 end
-
- 
 
 ------------------------------------------------------ 向左
 -- 撤销 退格
@@ -74,7 +71,6 @@ function funLeft:bottom()
 end
 function funLeft:mid()
     display_message("left")
- 
 end
 
 ------------------------------------------------------ 向右
@@ -116,7 +112,7 @@ end
 ----------------------------------- 下
 function funRight:bottom()
     display_message("bottom")
-    acPreviousApplication()  --切换上一个窗口
+    acPreviousApplication() --切换上一个窗口
 end
 ----------------------------------- 中
 function funRight:mid()
@@ -148,12 +144,22 @@ function qRight()
 end
 
 ------------------------------------------------------ 八方
+
 funArrow = {}
 function funArrow:title()
-    local name = acGetClassName(nil, cur.gsx, cur.gsy)
-    display_message(name)
+
+    iWindow = iWindow + 1
+
+    if iWindow > #tWindowToogle then
+        iWindow = 1
+    end
+
+    local code = tWindowToogle[iWindow]
+   -- log(iWindow.. ":"..code)
+    activate_window(code)
 end
 
+------------------------------------------------------ 八方
 --02.SouthWest 西南 ↙
 function funArrow:SouthWest()
     display_message("mini")
@@ -165,7 +171,7 @@ end
 function funArrow:NorthWest()
     --执行关闭窗口- 默认执行 Ctrl+w
     local exit = "^w"
-    local win = get_config_current()
+    local win = get_config()
     if win ~= nil and win.exit then
         exit = win.exit
     end

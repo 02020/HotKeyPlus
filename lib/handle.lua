@@ -115,24 +115,31 @@ function get_handles_all(flag)
     return temp
 end
 
---  获取当前类相同的窗体
-function get_handles(className)
+-- 获取当前类相同的窗体
+-- 通过匹配 file, 再匹配 titile 获取同类窗体
+--
+function get_handles(title)
     acGetAllWindows(0)
     local allwindows = sp_all_windows
     local handles = {}
+    local temp = ""
     local i = 1
     for k, v in pairs(allwindows) do
-        local name = acGetClassName(v)
-        local title = acGetWindowTitle(v)
-        if string.find(name, title) == 1 then
+        local _title = acGetWindowTitle(v)
+      --  temp = temp .. "\n" .. _title .. " "
+        if string.find(_title, title) ~= nil then
             handles[i] = v
             i = i + 1
         end
+    end
+    if i == 1 then
+        tip("get_handles is null")
     end
     return handles
 end
 
 -- 判读配置文件是否正确
+-- name 自定义的名称
 --@return config
 function is_config(name)
     if name == nil or name == "" then
@@ -145,6 +152,28 @@ function is_config(name)
     if win == nil or win.className == nil then
         error(name .. " config is empty")
         return false
+    end
+    return win
+end
+
+-- 获取当前窗口的配置 get_config_current
+function get_config(hwnd)
+    if hwnd == nil then
+        hwnd = acGetForegroundWindow()
+    end
+    local name = acGetExecutableName(hwnd)
+    name = string.sub(name, 1, string.len(name) - 4)
+    --display_message(name)
+    local win = tWindowFile[name]
+    -- log(hwnd .. name)
+
+    --clip()
+    -- PrintTable(win)
+    if win ~= nil then
+        win.hwnd = hwnd
+    else
+        -- log(hwnd .. name)
+        --   error("config is error:get_config")
     end
     return win
 end
@@ -198,16 +227,15 @@ function is_valid_hwnd(hwnd)
 end
 
 -- 激活窗体
-function activate_window_by_handle(hwnd,win)
+function activate_window_by_handle(hwnd, win)
     if not is_valid_hwnd(hwnd) then
-        if win ~=nil then
-            acMessageBox("not [ " ..  win.file .. " ]")
+        if win ~= nil then
+            tip("not [ " .. win.file .. " ]")
         else
-        acMessageBox("handle error [ " .. (hwnd or ".") .. " ]")
+            tip("handle error [ " .. (hwnd or ".") .. " ]")
         end
         return
     end
-    clip(11)
     acRestoreWindow(hwnd, 0, 0)
     acActivateWindow(hwnd, 0, 0, 0)
 end
@@ -222,7 +250,7 @@ function activate_window(name)
         local win = is_config(name)
         if win.shortcut then
             -- 用快捷的方式激活窗口
-            display_message(win.file);
+            display_message(win.file)
             acSendKeys(win.shortcut)
         else
             -- if not is_valid_hwnd(w) and win.type == 1 then
@@ -232,7 +260,7 @@ function activate_window(name)
             w = get_handle_window(win)
             --  clip()
             --  PrintTable(win)
-            activate_window_by_handle(w,win)
+            activate_window_by_handle(w, win)
         end
     end
     return w
@@ -240,19 +268,4 @@ end
 
 function activate_window_by_file(file)
     activate_window_by_handle(get_handle_file(name))
-end
-
--- 获取当前窗口的配置
-function get_config_current()
-    local hwnd = acGetForegroundWindow()
-    local name = acGetExecutableName(hwnd)
-    local win = tWindowFile[name]
-    -- log(hwnd .. name)
-    if win ~= nil then
-        win.hwnd = hwnd
-    else
-        -- log(hwnd .. name)
-        --   error("config is error:get_config_current")
-    end
-    return win
 end
