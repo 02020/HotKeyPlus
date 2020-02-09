@@ -4,8 +4,9 @@ tWindow = {
         className = "Chrome_WidgetWin_1",
         path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
         position = {
-            {x = -1091, y = 540, w = 1098, h = 1920},
-            {x = 800, y = 0, w = 1800, h = 1080}   --看b站视频
+            --{x = -1091, y =580, w = 1098, h = 1890},
+        --   {x = 800, y = 0, w = 1800, h = 1080}   --看b站视频
+            {x = 1900, y = 0, w = 1100, h = 1080},
         },
         type = 1 -- 不能为 1
     },
@@ -31,7 +32,9 @@ tWindow = {
         className = "360se6_Frame",
         path = "C:\\Users\\lol\\AppData\\Roaming\\360se6\\Application\\360se.exe",
         position = {
-            {x = -1085, y = 572, w = 1085, h = 1080},
+          --  {x = -1085, y =  540, w = 1085, h = 1920},
+            {x = 0, y = 0, w = 800, h = 1080},
+            {x = 0, y = 0, w = 1200, h = 1080},
            
         },
         type = 1 -- 不能为 1
@@ -60,13 +63,13 @@ tWindow = {
         file = "Code",
         hwnd = 0,
         className = "Chrome_WidgetWin_1",
-        path = "C:\\Users\\lol\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        path = "C:\\Program Files\\Microsoft VS Code\\Code.exe",
         comment = "不支持acFindWindow方法",
         type = 1,
         position = {
             {x = 0, y = 0, w = 2150, h = 1080},
-            {x = 0, y = 0, w = 1000, h = 1080},
-            {x = -1089, y = 540, w = 1089, h = 1920},
+            {x = 0, y = 0, w = 1100, h = 1080},
+           -- {x = -1089, y = 540, w = 1089, h = 1920},
         }
     },
     st = {
@@ -77,7 +80,7 @@ tWindow = {
         path = "D:\\Program\\Sublime Text\\sublime_text.exe",
         type = 1,
            position = {
-            {x = -1090, y = 540, w = 1098, h = 1080},
+           -- {x = -1090, y = 540, w = 1098, h = 1080},
             {x = 0, y = 0, w = 1000, h = 1080}
         }
     },
