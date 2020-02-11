@@ -42,19 +42,16 @@ function sp_after_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
     -- this function is not enabled by default, you must check the following setting
     -- in the Preferences tab: Allow After Action Script*
 end
-
+  
 function sp_middle_mouse_up(x, y, fwKeys)
-    -- 鼠标中键映射成 win+shift
-    -- 5s 后失效
-
+  
     -- acSendWinDown()
     -- acSendControlDown()
-    -- acSendShiftDown() 
+    -- acSendShiftDown()
     -- acDelay(500)
     -- acSendWinUp()
     -- acSendControlUp()
     -- acSendShiftUp()
-    -- message("middle-up")
 
     --your code here
     -- x = the x coordinate of the mouse where the middle button was clicked
@@ -62,8 +59,27 @@ function sp_middle_mouse_up(x, y, fwKeys)
     -- fwKeys = the key state at the time the middle button was pressed
 end
 
+
+mbLastTime = os.time()
+function sp_x2_mouse_up(x, y, fwKeys)
+ 
+    mbTime = os.time()
+    time = mbTime - mbLastTime
+    message(time)
+    if time < 1 then
+        acSendKeys("^")
+        acDelay(50)
+        acSendKeys("^")
+    else
+        mbLastTime = os.time()
+    end
+end
+
 function sp_after_release()
     -- this code is executed whenever you release the stroke button
     -- this function is not enabled by default, you must check the following setting
     -- in the Preferences tab: Allow After Release Script*
 end
+
+
+
