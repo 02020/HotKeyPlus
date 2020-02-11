@@ -8,14 +8,38 @@
 
 ;; Default working dir is c:\windows\system32
 ;#Include %A_ScriptDir%
-#Include AHKCommon.ahk
+; #Include AHKCommon.ahk
 ;; #Include AHKCursor.ahk
 
-#Include CapsLockPlus.ahk
-SetWorkingDir, D:\dev\workspace
-;; End of Auto Execution Section
-return
+; #Include CapsLockPlus.ahk
 
+;; End of Auto Execution Section
+ 
+
+;;打开或者隐藏窗口
+Switch_BackForth(WinTitle, AppPath, ByRef LastWinId) {
+    MsgBox, LastWinId is %WinTitle%
+  IfWinExist %WinTitle%
+  {
+    IfWinActive %WinTitle%
+    {
+      ;;如果当前窗口处于激活状态
+      WinGet, LastWinId, ID, %WinTitle%
+      WinMinimize, ahk_id  %LastWinId%
+    }
+    else
+    {
+      ;; 激活窗口
+      WinGet, LastWinId, ID, A
+      WinActivate
+    }
+  }
+  else
+  {
+    WinGet, LastWinId, ID, A
+    Run %AppPath%
+  }
+}
 
 
 ;; In Case LCtl and CapLock are not switched
@@ -53,7 +77,8 @@ return
 ; return
 
 
-^!w::
+
+MButton & w::
   ;; send Alt+F4 to quit current application
   Send !{F4}
 return
@@ -72,38 +97,38 @@ return
 MButton & 3::
   global LastActiveWinId_360
   Switch_BackForth("ahk_class 360se.exe"
-                 , "C:\Users\lol\AppData\Roaming\360se6\Application\360se.exe"
-                 , LastActiveWinId_wiz)
+                 , "C:\Users\Er\AppData\Roaming\360se6\Application\360se.exe"
+                 , LastActiveWinId_360)
 return
 ;------------- 为知
 
 
-MButton & w::
-  global LastActiveWinId_wiz
-  Switch_BackForth("ahk_class WizNoteMainFrame"
-                 , "C:\Program Files (x86)\WizNote\Wiz.exe"
-                 , LastActiveWinId_wiz)
-return
+; MButton & w::
+;   global LastActiveWinId_wiz
+;   Switch_BackForth("ahk_class WizNoteMainFrame"
+;                  , "C:\Program Files (x86)\WizNote\Wiz.exe"
+;                  , LastActiveWinId_wiz)
+; return
 
 
 
 
 ;------------- vs
 ;#v::
-MButton & v::
-  global LastActiveWinId_Devenv
-  Switch_BackForth("ahk_exe devenv.exe"
-                 , "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe"
-                 , LastActiveWinId_Devenv)
-return
+; MButton & v::
+;   global LastActiveWinId_Devenv
+;   Switch_BackForth("ahk_exe devenv.exe"
+;                  , "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe"
+;                  , LastActiveWinId_Devenv)
+; return
 
 
 ;------------- vscode
-#c::
+MButton & v::
 MButton & c::
   global LastActiveWinId_Code
   Switch_BackForth("ahk_exe Code.exe"
-                 , "C:\Users\lol\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+                 , "C:\Users\Er\AppData\Local\Programs\Microsoft VS Code\Code.exe"
                  , LastActiveWinId_Code)
 return
 
@@ -118,7 +143,7 @@ return
 ;------------- notepad++记事本
 #q::
 MButton & q::
-  global LastActiveWinId_notepad
+  global LastActiveWinId_notepadss
   Switch_BackForth("ahk_exe notepad++.exe"
                  , "C:\Program Files\Notepad++\notepad++.exe"
                  , LastActiveWinId_notepad)
@@ -128,7 +153,7 @@ return
 MButton & s::
   global LastActiveWinId_sublime
   Switch_BackForth("ahk_exe sublime_text.exe"
-                 , "D:\Program\Sublime Text\sublime_text.exe"
+                 , "C:\Program Files\Sublime Text 3\sublime_text.exe"
                  , LastActiveWinId_sublime)
 return
 
@@ -188,97 +213,97 @@ MButton & m::
 return
 
 
-;------------- 切换窗体
-^!h::
-  Send !{Esc}
-  Restore_ActiveWindowIfMinimized()
-return
+; ;------------- 切换窗体
+; ^!h::
+;   Send !{Esc}
+;   Restore_ActiveWindowIfMinimized()
+; return
 
-;------------- 查看当前窗口信息 inspect current active window
-^#space::
-  Inspect_ActiveWindow()
-return
-
-
-
-;#k::
-MButton & k::
-  WinGet, CurrentWinId, ID, A
-  Toggle_Windows_Set(CurrentWinId)
-return
-
-+^!f::
-  ;; Buggy
-  Toggle_FullScreen()
-return
-
-;; Show_InfoBoard()
-
-;; reload currently used script
-+^!p::
-  MsgBox, Script __%A_ScriptFullPath%__ will be reloaded
-  Reload_CurrentScript()
-return
-
-;; paste plain text using Shift+Ctrl+V as in Chrome
-+^v::
-  Input_ClipBoardAsPlainText()
-return
-;; TODO: extend the clipboard by, i.e. using multiple buffers just as vim does
-;;       or optionally prompt a selection box to choose from latest 10 clipboard content
+; ;------------- 查看当前窗口信息 inspect current active window
+; ^#space::
+;   Inspect_ActiveWindow()
+; return
 
 
->!n::
-  WinGetClass, winClass, A
-  if (winClass == "Notepad++")
-  {
-    SendInput gt
-  }
-  else
-  {
-    SendInput ^{Tab}
-  }
-return
+
+; ;#k::
+; MButton & k::
+;   WinGet, CurrentWinId, ID, A
+;   Toggle_Windows_Set(CurrentWinId)
+; return
+
+; +^!f::
+;   ;; Buggy
+;   Toggle_FullScreen()
+; return
+
+; ;; Show_InfoBoard()
+
+; ;; reload currently used script
+; +^!p::
+;   MsgBox, Script __%A_ScriptFullPath%__ will be reloaded
+;   Reload_CurrentScript()
+; return
+
+; ;; paste plain text using Shift+Ctrl+V as in Chrome
+; +^v::
+;   Input_ClipBoardAsPlainText()
+; return
+; ;; TODO: extend the clipboard by, i.e. using multiple buffers just as vim does
+; ;;       or optionally prompt a selection box to choose from latest 10 clipboard content
 
 
->!p::
-  WinGetClass, winClass, A
-  if (winClass == "Notepad++")
-  {
-    SendInput gT
-  }
-  else
-  {
-    SendInput +^{Tab}
-  }
-return
+; >!n::
+;   WinGetClass, winClass, A
+;   if (winClass == "Notepad++")
+;   {
+;     SendInput gt
+;   }
+;   else
+;   {
+;     SendInput ^{Tab}
+;   }
+; return
 
 
-;; switch to the next/prev window of the __same class__
-^+!n::
-  WinGetClass, winClass, A
-  /*
-  WinSet, Bottom,, A
-  WinActivate, ahk_class %winClass%
-  */
-  ;; more general ?
-  WinGet, oldWinId, ID, A
-  WinGet, winList, List, ahk_class %winClass%
-  if (winList > 1) {
-    WinActivate, ahk_id %winList2%
-    Restore_ActiveWindowIfMinimized()
-    WinSet, Bottom,, ahk_id %oldWinId%
-  }
-return
+; >!p::
+;   WinGetClass, winClass, A
+;   if (winClass == "Notepad++")
+;   {
+;     SendInput gT
+;   }
+;   else
+;   {
+;     SendInput +^{Tab}
+;   }
+; return
 
 
-^+!o::
-  WinGetClass, winClass, A
-  WinGet, winList, List, ahk_class %winClass%
-  if (winList > 1) {
-    lastMatchedWinId := winList%winList%
-    ; MsgBox, winList %winList%, lastMatchedWinId %lastMatchedWinId%
-    WinActivate, ahk_id %lastMatchedWinId%
-    Restore_ActiveWindowIfMinimized()
-  }
-return
+; ;; switch to the next/prev window of the __same class__
+; ^+!n::
+;   WinGetClass, winClass, A
+;   /*
+;   WinSet, Bottom,, A
+;   WinActivate, ahk_class %winClass%
+;   */
+;   ;; more general ?
+;   WinGet, oldWinId, ID, A
+;   WinGet, winList, List, ahk_class %winClass%
+;   if (winList > 1) {
+;     WinActivate, ahk_id %winList2%
+;     Restore_ActiveWindowIfMinimized()
+;     WinSet, Bottom,, ahk_id %oldWinId%
+;   }
+; return
+
+
+; ^+!o::
+;   WinGetClass, winClass, A
+;   WinGet, winList, List, ahk_class %winClass%
+;   if (winList > 1) {
+;     lastMatchedWinId := winList%winList%
+;     ; MsgBox, winList %winList%, lastMatchedWinId %lastMatchedWinId%
+;     WinActivate, ahk_id %lastMatchedWinId%
+;     Restore_ActiveWindowIfMinimized()
+;   }
+; return

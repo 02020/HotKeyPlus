@@ -1,0 +1,217 @@
+<Hotkeys>
+
+  <Hotkey description="Reload S+" enabled="1">
+    <Modifier1>1</Modifier1>
+    <Modifier2>3</Modifier2>
+    <Modifier3>2</Modifier3>
+    <Modifier4>-1</Modifier4>
+    <Key>43</Key>
+    <HotkeyID>0</HotkeyID>
+    <Lua>acReloadConfig()</Lua>
+  </Hotkey>
+
+  <Hotkey description="A" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>26</Key>
+    <HotkeyID>1</HotkeyID>
+    <Lua>activate_key(&quot;A&quot;)</Lua>
+  </Hotkey>
+
+  <Hotkey description="C" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>28</Key>
+    <HotkeyID>3</HotkeyID>
+    <Lua>activate_key(&quot;C&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="D" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>29</Key>
+    <HotkeyID>4</HotkeyID>
+    <Lua>activate_key(&quot;D&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="E" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>30</Key>
+    <HotkeyID>5</HotkeyID>
+    <Lua>activate_key(&quot;E&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="F" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>31</Key>
+    <HotkeyID>6</HotkeyID>
+    <Lua>activate_key(&quot;F&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="G" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>32</Key>
+    <HotkeyID>7</HotkeyID>
+    <Lua>activate_key(&quot;G&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="H" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>33</Key>
+    <HotkeyID>8</HotkeyID>
+    <Lua>activate_key(&quot;H&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="I" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>34</Key>
+    <HotkeyID>9</HotkeyID>
+    <Lua>activate_key(&quot;I&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="J" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>35</Key>
+    <HotkeyID>10</HotkeyID>
+    <Lua>activate_key(&quot;J&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="K" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>36</Key>
+    <HotkeyID>11</HotkeyID>
+    <Lua>activate_key(&quot;K&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="L" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>37</Key>
+    <HotkeyID>12</HotkeyID>
+    <Lua>activate_key(&quot;L&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="M" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>38</Key>
+    <HotkeyID>13</HotkeyID>
+    <Lua>activate_key(&quot;M&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="N" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>39</Key>
+    <HotkeyID>14</HotkeyID>
+    <Lua>activate_key(&quot;N&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="O" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>40</Key>
+    <HotkeyID>15</HotkeyID>
+    <Lua>activate_key(&quot;O&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="P" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>41</Key>
+    <HotkeyID>16</HotkeyID>
+    <Lua>activate_key(&quot;P&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="Q" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>42</Key>
+    <HotkeyID>17</HotkeyID>
+    <Lua>activate_key(&quot;Q&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="R" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>43</Key>
+    <HotkeyID>18</HotkeyID>
+    <Lua>activate_key(&quot;R&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="S" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>44</Key>
+    <HotkeyID>19</HotkeyID>
+    <Lua>activate_key(&quot;S&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="T" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>45</Key>
+    <HotkeyID>20</HotkeyID>
+    <Lua>activate_key(&quot;T&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="U" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>46</Key>
+    <HotkeyID>21</HotkeyID>
+    <Lua>activate_key(&quot;U&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="V" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>47</Key>
+    <HotkeyID>22</HotkeyID>
+    <Lua>activate_key(&quot;V&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="W" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>48</Key>
+    <HotkeyID>23</HotkeyID>
+    <Lua>activate_key(&quot;W&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="X" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>49</Key>
+    <HotkeyID>24</HotkeyID>
+    <Lua>activate_key(&quot;X&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="Y" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>50</Key>
+    <HotkeyID>25</HotkeyID>
+    <Lua>activate_key(&quot;Y&quot;)</Lua>
+  </Hotkey>
+  <Hotkey description="Z" enabled="1">
+    <Modifier3>1</Modifier3>
+    <Modifier1>3</Modifier1>
+    <Modifier2>4</Modifier2>
+    <Key>51</Key>
+    <HotkeyID>26</HotkeyID>
+    <Lua>activate_key(&quot;Z&quot;)</Lua>
+  </Hotkey>
+
+
+
+</Hotkeys>

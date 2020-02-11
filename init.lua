@@ -26,6 +26,7 @@ require("sign")
 require("shortcut")
 
 tWindowFile = {}
+tWindowLetter = {}
 tWindowToogle= {}
 for key, value in pairs(tWindow) do
     if value.file then
@@ -34,5 +35,9 @@ for key, value in pairs(tWindow) do
         else
             tWindowFile[value.file] = value
         end
+    end
+
+    if value.letter then
+        tWindowLetter[string.upper(value.letter)] = value
     end
 end

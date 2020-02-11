@@ -4,10 +4,10 @@ tWindow = {
         className = "Chrome_WidgetWin_1",
         path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
         position = {
-            --{x = -1091, y =580, w = 1098, h = 1890},
-        --   {x = 800, y = 0, w = 1800, h = 1080}   --看b站视频
-            {x = 1900, y = 0, w = 1100, h = 1080},
+            {x = -1091, y = 540, w = 1098, h = 1920},
+            {x = 800, y = 0, w = 1800, h = 1080} --看b站视频
         },
+        letter = "g",
         type = 1 -- 不能为 1
     },
     vivaldi = {
@@ -16,10 +16,11 @@ tWindow = {
         className = "Chrome_WidgetWin_1",
         path = "C:\\Program Files\\Vivaldi\\Application\\vivaldi.exe",
         type = 1,
+        letter = "e",
         position = {
             {x = 0, y = 0, w = 1820, h = 1080},
             {x = 1000, y = 0, w = 1400, h = 1080}
-        },
+        }
     },
     ie = {
         file = "iexplore",
@@ -30,12 +31,11 @@ tWindow = {
     se6 = {
         file = "360se",
         className = "360se6_Frame",
-        path = "C:\\Users\\lol\\AppData\\Roaming\\360se6\\Application\\360se.exe",
+        path = "C:\\Users\\Er\\AppData\\Roaming\\360se6\\Application\\360se.exe",
         position = {
-          --  {x = -1085, y =  540, w = 1085, h = 1920},
-            {x = 0, y = 0, w = 800, h = 1080},
-            {x = 0, y = 0, w = 1200, h = 1080},
-           
+            -- {x = -1085, y = 572, w = 1085, h = 1080},
+            {x = 0, y = 0, w = 1200, h = 1080}
+            -- {x = 1000, y = 0, w = 1400, h = 1080}
         },
         type = 1 -- 不能为 1
     },
@@ -44,7 +44,8 @@ tWindow = {
         title = "Notepad++",
         className = "Notepad++",
         path = "C:\\Program Files\\Notepad++\\notepad++.exe",
-        type = 1
+        type = 1,
+        letter = "q"
     },
     vs = {
         title = "Microsoft Visual Studio",
@@ -63,13 +64,14 @@ tWindow = {
         file = "Code",
         hwnd = 0,
         className = "Chrome_WidgetWin_1",
-        path = "C:\\Program Files\\Microsoft VS Code\\Code.exe",
+        path = "C:\\Users\\Er\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
         comment = "不支持acFindWindow方法",
         type = 1,
+        letter = "c",
         position = {
             {x = 0, y = 0, w = 2150, h = 1080},
-            {x = 0, y = 0, w = 1100, h = 1080},
-           -- {x = -1089, y = 540, w = 1089, h = 1920},
+            {x = 0, y = 0, w = 1000, h = 1080}
+            -- {x = -1089, y = 540, w = 1089, h = 1920},
         }
     },
     st = {
@@ -77,10 +79,11 @@ tWindow = {
         file = "sublime_text",
         hwnd = 0,
         className = "",
-        path = "D:\\Program\\Sublime Text\\sublime_text.exe",
+        path = "D:\\Program\\Sublime\\sublime_text.exe",
         type = 1,
-           position = {
-           -- {x = -1090, y = 540, w = 1098, h = 1080},
+        letter = "s",
+        position = {
+            {x = -1090, y = 540, w = 1098, h = 1080},
             {x = 0, y = 0, w = 1000, h = 1080}
         }
     },
@@ -88,8 +91,9 @@ tWindow = {
         title = "IntelliJ IDEA",
         file = "idea64",
         hwnd = 0,
+        letter = "a",
         className = "SunAwtFrame",
-        path = "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2019.2\\bin\\idea64.exe",
+        path = "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2019.3.2\\bin\\idea64.exe",
         exit = "^{F_4}",
         position = {
             {x = 0, y = 0, w = 1500, h = 1080},
@@ -99,17 +103,18 @@ tWindow = {
     dopus = {
         title = "Directory Opus",
         file = "dopus",
+        letter = "d",
         className = "dopus.lister",
         path = "C:\\Program Files\\GPSoftware\\Directory Opus\\dopus.exe",
         type = 1
     },
-        xy = {
+    xy = {
         title = "XYplorer",
         file = "XYplorer",
         className = "dopus.lister",
         path = "D:\\Program\\xyplorer20.5\\XYplorer.exe",
         type = 1,
-                position = {
+        position = {
             {x = -8, y = -52, w = 1200, h = 480}
         }
     },
@@ -140,6 +145,7 @@ tWindow = {
         file = "navicat",
         className = "TNavicatMainForm",
         path = "C:\\Program Files\\PremiumSoft\\Navicat Premium 12\\navicat.exe",
+        letter = "n",
         position = {
             {x = 1000, y = 0, w = 900, h = 1080},
             {x = 1000, y = 0, w = 1000, h = 1080}
@@ -170,7 +176,8 @@ tWindow = {
     myBase = {
         title = "",
         file = "myBase",
-        path="D:\\Program\\nyfedit7pro\\myBase.exe",
+        path = "D:\\Program\\nyfedit7pro\\myBase.exe",
+        letter = "m",
         position = {
             {x = 1800, y = 0, w = 700, h = 1080},
             {x = 1400, y = 0, w = 1100, h = 1080}

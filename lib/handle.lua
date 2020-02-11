@@ -60,6 +60,7 @@ end
 function get_handle_windows(className)
     acGetAllWindows(1)
     local allwindows = sp_all_windows
+    clip()
     local hwnd = 0
     local temp = ""
     for k, v in pairs(allwindows) do
@@ -73,6 +74,7 @@ function get_handle_windows(className)
         end
     end
     --  acMessageBox(temp)
+    clip(temp)
     return hwnd
 end
 
@@ -126,7 +128,7 @@ function get_handles(title)
     local i = 1
     for k, v in pairs(allwindows) do
         local _title = acGetWindowTitle(v)
-      --  temp = temp .. "\n" .. _title .. " "
+        --  temp = temp .. "\n" .. _title .. " "
         if string.find(_title, title) ~= nil then
             handles[i] = v
             i = i + 1
@@ -183,7 +185,7 @@ end
 -- @return 句柄
 function get_handle_window(win)
     local w = win.hwnd
-    if w == 0 or w == nil then
+    if w == nil or w == 0 then
         if win.file ~= nil then
             -- 从进程中获取
             w = get_handle_file(win.file)
@@ -202,12 +204,17 @@ function get_handle_window(win)
         acMessageBox("[ " .. win.file .. " ] window is Not Exist")
     else
         win.hwnd = w
+
         return w
     end
 end
 
 -- 根据任务管理器中的[名称],返回句柄
 function get_handle_file(file)
+    if string.find(string.upper(file), ".EXE") then
+    else
+        file = file .. ".exe"
+    end
     local processID = acGetProcessIDFromPattern(file)
     return acGetWindowFromProcessID(processID)
 end
@@ -236,8 +243,33 @@ function activate_window_by_handle(hwnd, win)
         end
         return
     end
-    acRestoreWindow(hwnd, 0, 0)
-    acActivateWindow(hwnd, 0, 0, 0)
+
+    if
+        string.upper(acGetExecutableName(acGetForegroundWindow())) ==
+            (string.upper(win.file) .. ".EXE")
+     then
+        acMinimizeWindow(hwnd, 0, 0)
+    else
+        acRestoreWindow(hwnd, 0, 0)
+        acActivateWindow(hwnd, 0, 0, 0)
+    end
+end
+
+function activate_key(key)
+    local win = tWindowLetter[string.upper(key)]
+
+    if win.shortcut then
+        -- 用快捷的方式激活窗口
+        display_message(win.file)
+        acSendKeys(win.shortcut)
+    else
+        if win.file ~= nil then
+            -- 从进程中获取
+            local w = get_handle_file(win.file)
+
+            activate_window_by_handle(w, win)
+        end
+    end
 end
 
 function activate_window(name)
@@ -260,6 +292,7 @@ function activate_window(name)
             w = get_handle_window(win)
             --  clip()
             --  PrintTable(win)
+            tip(w)
             activate_window_by_handle(w, win)
         end
     end

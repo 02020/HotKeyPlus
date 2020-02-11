@@ -2,6 +2,228 @@
 keysInit:
 global keyset:=CLSets.Keys
 
+; ================= MButton + Key ... Start =================
+{
+    ; =========   A ~ Z ... Start
+    {
+        if(!keyset.MButton_a)
+            keyset.MButton_a:="keyFunc_MButton_a"
+
+        if(!keyset.MButton_b)
+            keyset.MButton_b:="keyFunc_MButton_b"
+
+        if(!keyset.MButton_c)
+            keyset.MButton_c:="keyFunc_MButton_c"
+
+        if(!keyset.MButton_d)
+            keyset.MButton_d:="keyFunc_MButton_d"
+
+        if(!keyset.MButton_e)
+            keyset.MButton_e:="keyFunc_MButton_e"
+
+        if(!keyset.MButton_f)
+            keyset.MButton_f:="keyFunc_MButton_f"
+
+        if(!keyset.MButton_g)
+            keyset.MButton_g:="keyFunc_MButton_g"
+
+        if(!keyset.MButton_h)
+            keyset.MButton_h:="keyFunc_MButton_h"
+
+        if(!keyset.MButton_i)
+            keyset.MButton_i:="keyFunc_MButton_i"
+
+        if(!keyset.MButton_j)
+            keyset.MButton_j:="keyFunc_MButton_j"
+
+        if(!keyset.MButton_k)
+            keyset.MButton_k:="keyFunc_MButton_k"
+
+        if(!keyset.MButton_l)
+            keyset.MButton_l:="keyFunc_MButton_l"
+
+        if(!keyset.MButton_m)
+            keyset.MButton_m:="keyFunc_MButton_m"
+            
+        if(!keyset.MButton_n)
+            keyset.MButton_n:="keyFunc_MButton_n"
+
+        if(!keyset.MButton_o)
+            keyset.MButton_o:="keyFunc_MButton_o"
+
+        if(!keyset.MButton_p)
+            keyset.MButton_p:="keyFunc_MButton_p"
+
+        if(!keyset.MButton_q)
+            keyset.MButton_q:="keyFunc_MButton_q"
+
+        if(!keyset.MButton_r)
+            keyset.MButton_r:="keyFunc_MButton_r"
+
+        if(!keyset.MButton_s)
+            keyset.MButton_s:="keyFunc_MButton_s"
+
+        if(!keyset.MButton_t)
+            keyset.MButton_t:="keyFunc_MButton_t"
+
+        if(!keyset.MButton_u)
+            keyset.MButton_u:="keyFunc_MButton_u"
+
+        if(!keyset.MButton_v)
+            keyset.MButton_v:="keyFunc_MButton_v"
+
+        if(!keyset.MButton_w)
+            keyset.MButton_w:="keyFunc_MButton_w"
+
+        if(!keyset.MButton_x)
+            keyset.MButton_x:="keyFunc_MButton_x"
+
+        if(!keyset.MButton_y)
+            keyset.MButton_y:="keyFunc_MButton_y"
+
+        if(!keyset.MButton_z)
+            keyset.MButton_z:="keyFunc_MButton_z"
+    }
+    ; ===   A ~ Z ... End
+
+
+    ; =========   F1 ~ F12 ... Start
+    {
+        if(!keyset.MButton_f1)
+            keyset.MButton_f1:="keyFunc_MButton_f1"
+
+        if(!keyset.MButton_f2)
+            keyset.MButton_f2:="keyFunc_MButton_f2"
+
+        if(!keyset.MButton_f3)
+            keyset.MButton_f3:="keyFunc_MButton_f3"
+
+        if(!keyset.MButton_f4)
+            keyset.MButton_f4:="keyFunc_MButton_f4"
+
+        if(!keyset.MButton_f5)
+            keyset.MButton_f5:="keyFunc_MButton_f5"
+
+        if(!keyset.MButton_f6)
+            keyset.MButton_f6:="keyFunc_MButton_f6"
+
+        if(!keyset.MButton_f7)
+            keyset.MButton_f7:="keyFunc_MButton_f7"
+
+        if(!keyset.MButton_f8)
+            keyset.MButton_f8:="keyFunc_MButton_f8"
+
+        if(!keyset.MButton_f9)
+            keyset.MButton_f9:="keyFunc_MButton_f9"
+
+        if(!keyset.MButton_f10)
+            keyset.MButton_f10:="keyFunc_MButton_f10"
+
+        if(!keyset.MButton_f11)
+            keyset.MButton_f11:="keyFunc_MButton_f11"
+
+        if(!keyset.MButton_f12)
+            keyset.MButton_f12:="keyFunc_MButton_f12"
+
+    }
+    ; ===   F1 ~ F12 ... End
+
+
+    ; =========   0 ~ 9 ... Start
+    {
+        if(!keyset.MButton_0)
+            keyset.MButton_0:="keyFunc_MButton_0"
+        if(!keyset.MButton_1)
+            keyset.MButton_1:="keyFunc_MButton_1"
+        if(!keyset.MButton_2)
+            keyset.MButton_2:="keyFunc_MButton_2"
+        if(!keyset.MButton_3)
+            keyset.MButton_3:="keyFunc_MButton_3"
+        if(!keyset.MButton_4)
+            keyset.MButton_4:="keyFunc_MButton_4"
+        if(!keyset.MButton_5)
+            keyset.MButton_5:="keyFunc_MButton_5"
+        if(!keyset.MButton_6)
+            keyset.MButton_6:="keyFunc_MButton_6"
+        if(!keyset.MButton_7)
+            keyset.MButton_7:="keyFunc_MButton_7"
+        if(!keyset.MButton_8)
+            keyset.MButton_8:="keyFunc_MButton_8"
+        if(!keyset.MButton_9)
+            keyset.MButton_9:="keyFunc_MButton_9"
+    }
+    ; ===   0 ~ 9 ... End
+
+
+    ; =========   其他符号 ... Start
+    {
+        ; 反引号( ` )
+        if(!keyset.MButton_backquote)
+            keyset.MButton_backquote:="keyFunc_MButton_backquote"
+            
+        ; 减号( - )
+        if(!keyset.MButton_minus)
+            keyset.MButton_minus:="keyFunc_MButton_minus"
+
+        ; 等于号（ = ）
+        if(!keyset.MButton_equal)
+            keyset.MButton_equal:="keyFunc_MButton_equal"
+
+        ; ( Backspace )
+        if(!keyset.MButton_backspace)
+            keyset.MButton_backspace:="keyFunc_MButton_backspace"
+
+        ; ( Tab )
+        if(!keyset.MButton_tab)
+            keyset.MButton_tab:="keyFunc_MButton_tab"
+
+        ; 左方括号( [ )
+        if(!keyset.MButton_leftSquareBracket)
+            keyset.MButton_leftSquareBracket:="keyFunc_MButton_leftSquareBracket"
+
+        ; 右方括号( ] )
+        if(!keyset.MButton_rightSquareBracket)
+            keyset.MButton_rightSquareBracket:="keyFunc_MButton_rightSquareBracket"
+        
+
+        ; 反斜杠( \ )
+        if(!keyset.MButton_backslash)
+            keyset.MButton_backslash:="keyFunc_MButton_backslash"
+
+        ; 分号( ; )
+        if(!keyset.MButton_semicolon)
+            keyset.MButton_semicolon:="keyFunc_MButton_semicolon"
+
+        ; 双引号( "" )
+        if(!keyset.MButton_quote)
+            keyset.MButton_quote:="keyFunc_MButton_quote"
+
+        ; ( Enter )
+        if(!keyset.MButton_enter)
+            keyset.MButton_enter:="keyFunc_MButton_enter"
+
+        ; 逗号( , )
+        if(!keyset.MButton_comma)
+            keyset.MButton_comma:="keyFunc_MButton_comma"
+
+        ; 句号( 。 )
+        if(!keyset.MButton_dot)
+            keyset.MButton_dot:="keyFunc_MButton_dot"
+
+        ; 斜杠( / )
+        if(!keyset.MButton_slash)
+            keyset.MButton_slash:="keyFunc_MButton_slash"
+
+        ; 空格( Space )
+        if(!keyset.MButton_space)
+            keyset.MButton_space:="keyFunc_MButton_space"
+
+    }
+    ; ===   其他符号 ... End
+}
+; ================= MButton + Key ... End =================
+
+
 ; ================= CapsLock + Key ... Start =================
 {
     ; =========   A ~ Z ... Start

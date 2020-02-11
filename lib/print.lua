@@ -65,6 +65,11 @@ function display_message(msg)
     acDisplayText(msg, FONT, 30, 255, 128, 0, delay, x, y)
 end
 
+
+
+function  message(msg)
+    display_message(msg)
+end
 ---
 -- @function: 打印table的内容，递归
 -- @param: tbl 要打印的table

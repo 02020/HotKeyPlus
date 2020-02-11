@@ -43,10 +43,23 @@ function sp_after_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
     -- in the Preferences tab: Allow After Action Script*
 end
 
-function sp_middle_mouse_down()
-    -- this code is executed whenever you press the middle mouse button down
-    -- this function is not enabled by default, you must check the following setting
-    -- in the Preferences tab: Allow Middle Click Script*
+function sp_middle_mouse_up(x, y, fwKeys)
+    -- 鼠标中键映射成 win+shift
+    -- 5s 后失效
+
+    -- acSendWinDown()
+    -- acSendControlDown()
+    -- acSendShiftDown() 
+    -- acDelay(500)
+    -- acSendWinUp()
+    -- acSendControlUp()
+    -- acSendShiftUp()
+    -- message("middle-up")
+
+    --your code here
+    -- x = the x coordinate of the mouse where the middle button was clicked
+    -- y = the y coordinate of the mouse where the middle button was clicked
+    -- fwKeys = the key state at the time the middle button was pressed
 end
 
 function sp_after_release()

@@ -31,7 +31,6 @@ Switch_BackForth0(WinTitle, AppPath, ByRef LastWinId) {
       ;;如果当前窗口处于激活状态
       WinGet, LastWinId, ID, %WinTitle%
       WinMinimize, ahk_id  %LastWinId%
- 
       if (LastWinId == "")
       {
         LastWinId := Get_LastActiveWinId()
@@ -62,8 +61,6 @@ Switch_BackForth0(WinTitle, AppPath, ByRef LastWinId) {
     WinGet, LastWinId, ID, A
     Run %AppPath%
   }
-       MouseGetPos, , , id, control
-      WinActivate ahk_id %id%      
 }
 
 ;;打开或者隐藏窗口
