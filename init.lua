@@ -2,7 +2,8 @@
 cur = {} --当前鼠标位置
 sWinTim = 661658
 
-sWindow = {"vs", "google"}
+--sWindow = {"vscode", "google"}
+sWindow = {"g", "f"}
 
 lastHwnd = 0
 --招拍挂
@@ -27,6 +28,7 @@ require("shortcut")
 
 tWindowFile = {}
 tWindowLetter = {}
+tWindowHand = {}
 tWindowToogle= {}
 for key, value in pairs(tWindow) do
     if value.file then
@@ -37,7 +39,14 @@ for key, value in pairs(tWindow) do
         end
     end
 
-    if value.letter then
-        tWindowLetter[string.upper(value.letter)] = value
-    end
+    -- if value.letter then
+    --     tWindowLetter[string.upper(value.letter)] = value
+    -- end
 end
+
+
+-- local t0 = socket.gettime()
+--  -- do something
+--  local t1 = socket.gettime()
+
+--  message(t0)

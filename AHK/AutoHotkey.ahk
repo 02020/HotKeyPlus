@@ -307,3 +307,11 @@ return
 ;     Restore_ActiveWindowIfMinimized()
 ;   }
 ; return
+
+
+ ^+d::
+ StringTrimLeft, OutputVar, A_ThisHotkey, 2
+
+   MsgBox, Script __%OutputVar%__ will be reloaded
+ 
+    return

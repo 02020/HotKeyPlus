@@ -3,12 +3,12 @@
 qCtrl = {}
 ------------------------------------------------------Ctrl 上
 function qCtrl:Up()
-    ggTim()
+    acSendKeys("^+T") 
 end
 
 ------------------------------------------------------Ctrl 下
 function qCtrl:Down()
-    ggwx()
+    activate_window("wx")
 end
 ------------------------------------------------------Ctrl 左
 function qCtrl:Left()
@@ -24,11 +24,13 @@ function qCtrl:Right()
 
 
         local win = get_config()
+      
         local w = {}
         if win ~= nil and win.title ~= nil then
             -- clip()
-            -- PrintTable(w)
+            -- 
             w = get_handles(win.title)
+            PrintTable(w)
             local i = #tWindowToogle + 1
             for k, v in pairs(w) do
                 tWindowToogle[i] = v
@@ -38,8 +40,8 @@ function qCtrl:Right()
             display_message("funArrow:title is null")
         end
     else
-        local temp = get_handles_all(1)
-        acSetClipboardText(temp)
+       -- local temp = get_handles_all(1)
+       -- acSetClipboardText(temp)
     end
 end
 

@@ -163,6 +163,7 @@ function get_config(hwnd)
     if hwnd == nil then
         hwnd = acGetForegroundWindow()
     end
+
     local name = acGetExecutableName(hwnd)
     name = string.sub(name, 1, string.len(name) - 4)
     --display_message(name)
@@ -244,7 +245,7 @@ function activate_window_by_handle(hwnd, win)
         return
     end
 
-    if
+    if win ~= nil and
         string.upper(acGetExecutableName(acGetForegroundWindow())) ==
             (string.upper(win.file) .. ".EXE")
      then

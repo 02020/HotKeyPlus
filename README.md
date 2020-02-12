@@ -64,8 +64,7 @@ firefox.exe|iexplore.exe|opera.exe|360se.exe|vivaldi.exe
 
 
 #### 浏览器
-通过AHK的快捷键打开
-
+ 
 
 
 https://github.com/wo52616111/capslock-plus

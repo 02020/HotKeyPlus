@@ -6,6 +6,8 @@ ahk-script
 ! : alt
 + : shift
 
+^+!
+
 Simple AHK script that boosts my productivity in Windows.
 
 Inspired by KBC Poker I and XMonad

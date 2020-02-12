@@ -22,8 +22,11 @@ function qExecuteToogle()
     end
 
     local code = sWindow[iWindow]
-    log(code)
-    activate_window(code)
+
+    acSendKeys("^+%@" .. code) 
+
+
+    --activate_window(code)
 end
 
 -- 执行窗口定位：根据配置文件

@@ -4,7 +4,7 @@ tWindow = {
         className = "Chrome_WidgetWin_1",
         path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
         position = {
-            {x = -1091, y = 540, w = 1098, h = 1920},
+            -- {x = -1091, y = 540, w = 1098, h = 1920},
             {x = 800, y = 0, w = 1800, h = 1080} --看b站视频
         },
         letter = "g",
@@ -69,8 +69,8 @@ tWindow = {
         type = 1,
         letter = "c",
         position = {
-            {x = 0, y = 0, w = 2150, h = 1080},
-            {x = 0, y = 0, w = 1000, h = 1080}
+            {x = 0, y = 0, w = 1950, h = 1080},
+            {x = 0, y = 0, w = 1300, h = 1080}
             -- {x = -1089, y = 540, w = 1089, h = 1920},
         }
     },
@@ -119,15 +119,14 @@ tWindow = {
         }
     },
     tim = {
-        -- 只能使用句柄的方式来调用窗体
-        hwnd = sWinTim,
+        -- 通过 ahk 调用
         file = "TIM",
         className = "TXGuiFoundation"
     },
     wx = {
+        -- 通过 ahk 调用
         file = "WeChat",
         className = "WeChatMainWndForPC",
-        shortcut = "^+l",
         exit = "%{F_4}"
     },
     yodao = {
@@ -179,7 +178,7 @@ tWindow = {
         path = "D:\\Program\\nyfedit7pro\\myBase.exe",
         letter = "m",
         position = {
-            {x = 1800, y = 0, w = 700, h = 1080},
+            {x = 1000, y = 0, w = 1000, h = 1080},
             {x = 1400, y = 0, w = 1100, h = 1080}
         }
     }

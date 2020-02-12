@@ -1,13 +1,4 @@
---- 快速打开 Tim
-function ggTim()
-    acSendKeys("^+T")
-    -- activate_window(sWinTim)
-end
-
---- 快速打开 微信
-function ggwx()
-    activate_window("wx")
-end
+ 
 
 --- 获取当前窗体-句柄ID
 function qGetHandleID()
@@ -23,7 +14,7 @@ function qGetHandleClass()
     id = acGetWindowByPoint(cur.gsx, cur.gsy)
     w = acGetClassName(id, cur.gsx, cur.gsy)
     display_message(w)
-    acSetClipboardText(w)
+    log(w)
 end
 
 function dddd()

@@ -88,15 +88,15 @@ function funRightV:B()
     acSetWindowSize(w, 0, 0, 1000, 1080) --100%
 end
 function funRightV:C()
-    clip()
     activate_window("vscode")
 end
 function funRightV:D()
-    activate_window("yodao")
+    activate_window("st")
 end
 
 function funRight:right()
     local x = get_mouse_position_v()
+    message(x)
     funRightV[x]()
 end
 
@@ -164,7 +164,8 @@ end
 function funArrow:SouthWest()
     display_message("mini")
     lastHwnd = acGetForegroundWindow()
-    acMinimizeWindow(nil, cur.gsx, cur.gsy)
+   -- acMinimizeWindow(nil, cur.gsx, cur.gsy)
+   acMinimizeWindow(lastHwnd)
 end
 
 --06.NorthWest 西北 ↖

@@ -37,7 +37,7 @@ end
 function get_log_content_title()
     local s1 =
         "--------------------------------------------------------------------------------------"
-    local s2 = "\n" .. ">> 操作时间" .. os.date("%Y-%m-%d %H:%M:%S")
-    local s3 = "\n" .. ">> 内容" .. "\n"
+    local s2 = "\n" .. ">> operationTime " .. os.date("%Y-%m-%d %H:%M:%S")
+    local s3 = "\n" .. ">> content " .. "\n"
     return "\n" .. "\n" .. s1 .. s2 .. s3
 end
