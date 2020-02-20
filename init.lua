@@ -3,7 +3,8 @@ cur = {} --当前鼠标位置
 sWinTim = 661658
 
 --sWindow = {"vscode", "google"}
-sWindow = {"g", "f"}
+sWindow = {"e", "f", "v"}
+sWindow = {"g", "v"}
 
 lastHwnd = 0
 --招拍挂

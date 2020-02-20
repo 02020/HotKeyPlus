@@ -5,7 +5,9 @@ tWindow = {
         path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
         position = {
             -- {x = -1091, y = 540, w = 1098, h = 1920},
-            {x = 800, y = 0, w = 1800, h = 1080} --看b站视频
+         --   {x = 800, y = 0, w = 1800, h = 1080}, --看b站视频
+            {x = 1000, y = 0, w = 1500, h = 1080} ,
+            {x = 1200, y = 0, w = 1300, h = 1080} 
         },
         letter = "g",
         type = 1 -- 不能为 1
@@ -55,8 +57,8 @@ tWindow = {
         path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\IDE\\devenv.exe",
         exit = "^{F_4}",
         position = {
-            {x = 0, y = 0, w = 1100, h = 1080},
-            {x = 0, y = 0, w = 1400, h = 1080}
+            {x = 0, y = 0, w = 1800, h = 1080},
+            {x = 0, y = 0, w = 1200, h = 1080}
         }
     },
     vscode = {
@@ -140,14 +142,15 @@ tWindow = {
         file = "Rolan",
         className = "ThunderRT6FormDC"
     },
+    -- 2560
     navicat = {
         file = "navicat",
         className = "TNavicatMainForm",
         path = "C:\\Program Files\\PremiumSoft\\Navicat Premium 12\\navicat.exe",
         letter = "n",
         position = {
-            {x = 1000, y = 0, w = 900, h = 1080},
-            {x = 1000, y = 0, w = 1000, h = 1080}
+            {x = 1600, y = 0, w = 900, h = 1080},
+            {x = 1800, y = 0, w = 700, h = 1080}
         }
     },
     doc = {

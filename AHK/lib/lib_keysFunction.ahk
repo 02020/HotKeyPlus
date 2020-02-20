@@ -43,7 +43,7 @@
         }
         
         keyFunc_MButton_i(){
-            
+             funcLogic_winbind_activate("i")
             return
         }
         
@@ -53,12 +53,12 @@
         }
         
         keyFunc_MButton_k(){
-            
+             funcLogic_winbind_activate("k")
             return
         }
         
         keyFunc_MButton_l(){
-            
+             funcLogic_winbind_activate("l")
             return
         }
         
@@ -73,12 +73,12 @@
         }
         
         keyFunc_MButton_o(){
-            
+               funcLogic_winbind_activate("o")
             return
         }
         
         keyFunc_MButton_p(){
-            
+            funcLogic_winbind_activate("p")
             return
         }
         
@@ -103,7 +103,7 @@
         }
         
         keyFunc_MButton_u(){
-            
+             funcLogic_winbind_activate("u")
             return
         }
         
@@ -123,7 +123,7 @@
         }
         
         keyFunc_MButton_y(){
-            
+            funcLogic_winbind_activate("y")
             return
         }
         
@@ -203,7 +203,8 @@
     
     ; =========   0 ~ 9 ... Start
     {
-        keyFunc_MButton_0(){
+        keyFunc_MButton_0(){         
+            funcLogic_winbind_activate(0)
             return
         }
         
@@ -248,7 +249,7 @@
         }
         
         keyFunc_MButton_9(){
-            funcLogic_doubleChar("(",")")
+           funcLogic_winbind_activate(9)
             return
         }
     }
@@ -535,6 +536,7 @@
     ; =========   0 ~ 9 ... Start
     {
         keyFunc_0(){
+            funcLogic_winbind_activate(0)
             return
         }
         
@@ -579,7 +581,7 @@
         }
         
         keyFunc_9(){
-            funcLogic_doubleChar("(",")")
+             funcLogic_winbind_activate(9)
             return
         }
     }
@@ -901,6 +903,7 @@
     ; =========   0 ~ 9 ... Start
     {
         keyFunc_alt_0(){
+             funcLogic_winbind_binding(0)
             return
         }
         
@@ -945,6 +948,7 @@
         }
         
         keyFunc_alt_9(){
+            funcLogic_winbind_binding(9)
             return
         }
     }

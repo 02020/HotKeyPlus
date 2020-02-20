@@ -929,9 +929,6 @@ GuiEscape:
     Gui, Cancel
 return
 
-
-  
- 
  {
         ^+!#a::
         ^+!#b::
@@ -988,3 +985,7 @@ return
             Capslock2:=""
         Return
     }
+
+
+
+XButton2::Ctrl

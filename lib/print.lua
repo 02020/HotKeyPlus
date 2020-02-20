@@ -3,23 +3,24 @@ function clip(param)
         acSetClipboardText()
     elseif param == "__" then
     else
-        param =  acGetClipboardText() .. param .. "\n"
+        param = acGetClipboardText() .. param .. "\n"
         acSetClipboardText(param)
     end
     return param
 end
-
--- 调用win10通知
+-- 在使用UTF-8字符编码的情况下，一个中文字符占3个字节
+-- 调用win10通知，只支持gbk
+-- 
 function tip(content, title, level)
-    if string.len(content) > 60 then
-        content = string.sub(content, 0, 58) .. "..."
-        acDisplayBalloonTip(
-            title or os.date("%Y-%m-%d %H:%M"),
-            content,
-            level or 1,
-            0
-        )
+    if getStringLength(content) > 295 then
+        content = string.sub(content, 0, 125) .. "..."
     end
+    acDisplayBalloonTip(
+        content,
+        "你走吧",-- title or os.date("%Y-%m-%d %H:%M"),
+        level or 1,
+        0
+    )
 end
 
 -- 在屏幕显示信息
@@ -65,9 +66,7 @@ function display_message(msg)
     acDisplayText(msg, FONT, 30, 255, 128, 0, delay, x, y)
 end
 
-
-
-function  message(msg)
+function message(msg)
     display_message(msg)
 end
 ---
@@ -117,3 +116,58 @@ function PrintTable(tbl, level, filteDefault)
     end
     clip(indent_str .. "}")
 end
+
+
+-- 获取字符串的长度（任何单个字符长度都为1）
+function getStringLength(inputstr)
+    if not inputstr or type(inputstr) ~= "string" or #inputstr <= 0 then
+        return nil
+    end
+    local length = 0  -- 字符的个数
+    local i = 1
+    while true do
+        local curByte = string.byte(inputstr, i)
+        local byteCount = 1
+        if curByte > 239 then
+            byteCount = 4  -- 4字节字符
+        elseif curByte > 223 then
+            byteCount = 3  -- 汉字
+        elseif curByte > 128 then
+            byteCount = 2  -- 双字节字符
+        else
+            byteCount = 1  -- 单字节字符
+        end
+        -- local char = string.sub(inputstr, i, i + byteCount - 1)
+        -- print(char)  -- 打印单个字符
+        length = length + byteCount
+        i = i + 1
+        if i > #inputstr then
+            break
+        end
+    end
+    return length
+end
+
+-- 计算 UTF8 字符串的长度，每一个中文算一个字符
+function utf8len(input)
+    local len  = string.len(input)
+    local left = len
+    local cnt  = 0
+    local arr  = {0, 0xc0, 0xe0, 0xf0, 0xf8, 0xfc}
+    while left ~= 0 do
+        local tmp = string.byte(input, -left)
+        local i   = #arr
+        while arr[i] do
+            if tmp >= arr[i] then
+                left = left - i
+                break
+            end
+            i = i - 1
+        end
+        cnt = cnt + 1
+    end
+    return cnt
+ 
+end
+
+

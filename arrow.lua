@@ -21,9 +21,9 @@ end
 
 function funUp:mid()
     --显示窗体
-    display_message("mid")
-    --   acSendKeys("+%q")
-    acSendKeys("@g{DELAY 50}q")
+    display_message("funUp:mid")
+    -- acSendKeys("^+q")
+  --  acSendKeys("@g{DELAY 50}q")
    -- acDelay(100)
    -- acMouseMove(cur.gex + 180, cur.gey + 40)
 end
