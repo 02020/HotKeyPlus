@@ -96,7 +96,7 @@ setCapsLock2:
     CapsLock2:=""
 return
 
-#if GetKeyState("MButton", "P")
+#if GetKeyState("XButton2", "P")
 {
     {
         a::
@@ -988,4 +988,5 @@ return
 
 
 
-XButton2::Ctrl
+XButton1::Ctrl
+; XButton2::Ctrl

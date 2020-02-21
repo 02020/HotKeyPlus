@@ -1,6 +1,6 @@
 ﻿bindWinsInit:
     global winsInfos:={}
-    global tapTimes:={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,btn:-1}
+    global tapTimes:={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,btn:-1,    "q":1,"w":1,"e":1,"r":1,"t":1,"y":1,"u":1,"i":1,"o":1,"p":1,    "a":1,"s":1,"d":1,"f":1,"g":1,"h":1,"j":1,"k":1,"l":1,    "z":1,"x":1,"c":1,"v":1,"b":1,"n":1,"m":1}
     global winTapedX ;winTapedX用于判断多窗口绑定的切换是哪个按键的，在CapsLock松开后winsSort()用来判定一次窗口在窗口组的位置
     global lastActiveWinId ;在用窗口激活时，现在正在激活状态的窗口id
     ;标志有没获取过窗口信息，因为判断多次敲击需要等待时间，
@@ -30,7 +30,7 @@
     
     letterArr:=StrSplit("a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z",",")
     
-    for keyIndex,key in letterArr
+    for keyIndex, key in letterArr
         initWinsInfos(key)
     ;  {
     ;  		_t:="group" . A_index-1 ;-1：把索引从1开始换成0开始
@@ -279,8 +279,15 @@ activateWinAction(btnx)
             Else
             {
                 IfExist, %tempExe%
-                {
-                    Run, %tempExe%
+                {           
+                  
+                    ; 增加确认
+                    MsgBox, 4,是否要运行程序 ,  %tempExe% ? , 2 
+                    IfMsgBox Yes
+                        Run, %tempExe%
+                    else
+                        Return
+                    
                 }
                 Return
             }

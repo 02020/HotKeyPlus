@@ -59,16 +59,16 @@ end
 
 mbLastTime = os.time()
 function sp_x2_mouse_up(x, y, fwKeys)
-    mbTime = os.time()
-    time = mbTime - mbLastTime
-    message(time)
-    if time < 1 then
-        acSendKeys("^")
-        acDelay(50)
-        acSendKeys("^")
-    else
-        mbLastTime = os.time()
-    end
+    -- mbTime = os.time()
+    -- time = mbTime - mbLastTime
+    -- message(time)
+    -- if time < 1 then
+    --     acSendKeys("^")
+    --     acDelay(50)
+    --     acSendKeys("^")
+    -- else
+    --     mbLastTime = os.time()
+    -- end
 end
 
 function sp_after_release()
