@@ -23,14 +23,13 @@ function qExecuteToogle()
 
     local code = sWindow[iWindow]
 
-    acSendKeys("^+%@" .. code) 
-
+    acSendKeys("^+%@" .. code)
 
     --activate_window(code)
 end
 
 -- 执行窗口定位：根据配置文件
-function execute_position()
+function execute_position(val)
     iWindow = iWindow + 1
 
     local win = get_config()
@@ -41,8 +40,15 @@ function execute_position()
             iWindow = 1
         end
         local pos = posList[iWindow]
-        acMoveWindow(win.hwnd, 0, 0, pos.x, pos.y)
-        acSetWindowSize(win.hwnd, pos.x, pos.y, pos.w, pos.h) --100%
+        if val == nil or val == 0 then
+            -- 向左靠齐
+            acMoveWindow(win.hwnd, 0, 0, pos.x, pos.y)
+            acSetWindowSize(win.hwnd, pos.x, pos.y, pos.w, pos.h) --100%
+        else
+            -- 向右靠齐
+             acMoveWindow(win.hwnd, 0, 0,  2496-pos.w , pos.y)
+            acSetWindowSize(win.hwnd, 2560-pos.w ,0, pos.w, pos.h) --100%
+        end
     end
 end
 
@@ -55,7 +61,8 @@ function get_info()
         acGetWindowTitle(hwnd) ..
             "\nclassName:" ..
                 acGetClassName(hwnd) ..
-                    "\nid:" .. hwnd .. -- acGetControlID(hwnd) ..
+                    "\nid:" ..
+                        hwnd .. -- acGetControlID(hwnd) ..
                             "\nname:" .. acGetExecutableName(hwnd)
     -- "path"..   acGetExecutablePath(hwnd)
 

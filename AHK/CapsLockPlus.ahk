@@ -96,75 +96,17 @@ setCapsLock2:
     CapsLock2:=""
 return
 
-#if GetKeyState("XButton2", "P")
-{
-    {
-        a::
-        b::
-        c::
-        d::
-        e::
-        f::
-        g::
-        h::
-        i::
-        j::
-        k::
-        l::
-        n::
-        m::
-        o::
-        p::
-        q::
-        r::
-        s::
-        t::
-        u::
-        v::
-        w::
-        x::
-        y::
-        z::
-        1::
-        2::
-        3::
-        4::
-        5::
-        6::
-        7::
-        8::
-        9::
-        0::
-        f1::
-        f2::
-        f3::
-        f4::
-        f5::
-        f6::
-        f7::
-        f8::
-        f9::
-        f10::
-        f11::
-        f12::
-            try       
-            runFunc(keyset["MButton_" . A_ThisHotkey])
-            Capslock2:=""
-        Return
-    }
-    
-    return
-}
 
+#Include Mouse.ahk 
 ;----------------------------keys-set-start-----------------------------
 
 #if
     
 #If CapsLock ;when capslock key press and hold
- 
+    
 ; ================= CapsLock + Key ... Start =================
 {
-     
+    
     ; =========   A ~ Z，0~9，F1~F12 ... Start
     {
         a::
@@ -929,64 +871,59 @@ GuiEscape:
     Gui, Cancel
 return
 
- {
-        ^+!#a::
-        ^+!#b::
-        ^+!#c::
-        ^+!#d::
-        ^+!#e::
-        ^+!#f::
-        ^+!#g::
-        ^+!#h::
-        ^+!#i::
-        ^+!#j::
-        ^+!#k::
-        ^+!#l::
-        ^+!#n::
-        ^+!#m::
-        ^+!#o::
-        ^+!#p::
-        ^+!#q::
-        ^+!#r::
-        ^+!#s::
-        ^+!#t::
-        ^+!#u::
-        ^+!#v::
-        ^+!#w::
-        ^+!#x::
-        ^+!#y::
-        ^+!#z::
-        ^+!#1::
-        ^+!#2::
-        ^+!#3::
-        ^+!#4::
-        ^+!#5::
-        ^+!#6::
-        ^+!#7::
-        ^+!#8::
-        ^+!#9::
-        ^+!#0::
-        ^+!#f1::
-        ^+!#f2::
-        ^+!#f3::
-        ^+!#f4::
-        ^+!#f5::
-        ^+!#f6::
-        ^+!#f7::
-        ^+!#f8::
-        ^+!#f9::
-        ^+!#f10::
-        ^+!#f11::
-        ^+!#f12::
-            try
-            StringTrimLeft, OutputVar, A_ThisHotkey, 4
-           ; MsgBox, Script __%OutputVar%__ will be reloaded
-            runFunc(keyset["MButton_" . OutputVar])
-            Capslock2:=""
-        Return
-    }
-
-
-
-XButton1::Ctrl
-; XButton2::Ctrl
+{
+^+!#a::
+^+!#b::
+^+!#c::
+^+!#d::
+^+!#e::
+^+!#f::
+^+!#g::
+^+!#h::
+^+!#i::
+^+!#j::
+^+!#k::
+^+!#l::
+^+!#n::
+^+!#m::
+^+!#o::
+^+!#p::
+^+!#q::
+^+!#r::
+^+!#s::
+^+!#t::
+^+!#u::
+^+!#v::
+^+!#w::
+^+!#x::
+^+!#y::
+^+!#z::
+^+!#1::
+^+!#2::
+^+!#3::
+^+!#4::
+^+!#5::
+^+!#6::
+^+!#7::
+^+!#8::
+^+!#9::
+^+!#0::
+^+!#f1::
+^+!#f2::
+^+!#f3::
+^+!#f4::
+^+!#f5::
+^+!#f6::
+^+!#f7::
+^+!#f8::
+^+!#f9::
+^+!#f10::
+^+!#f11::
+^+!#f12::
+    try
+    StringTrimLeft, OutputVar, A_ThisHotkey, 4
+    ; MsgBox, Script __%OutputVar%__ will be reloaded
+    runFunc(keyset["MButton_" . OutputVar])
+    Capslock2:=""
+Return
+}

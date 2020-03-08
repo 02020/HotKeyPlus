@@ -6,8 +6,8 @@ tWindow = {
         position = {
             -- {x = -1091, y = 540, w = 1098, h = 1920},
          --   {x = 800, y = 0, w = 1800, h = 1080}, --看b站视频
-            {x = 1000, y = 0, w = 1500, h = 1080} ,
-            {x = 1200, y = 0, w = 1300, h = 1080} 
+            {x = 00, y = 0, w = 1200, h = 1080} ,
+            {x = 00, y = 0, w = 1400, h = 1080} 
         },
         letter = "g",
         type = 1 -- 不能为 1
@@ -57,6 +57,7 @@ tWindow = {
         path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\IDE\\devenv.exe",
         exit = "^{F_4}",
         position = {
+            {x = 0, y = 30, w = 1800, h = 1050},
             {x = 0, y = 0, w = 1800, h = 1080},
             {x = 0, y = 0, w = 1200, h = 1080}
         }
@@ -72,7 +73,7 @@ tWindow = {
         letter = "c",
         position = {
             {x = 0, y = 0, w = 1950, h = 1080},
-            {x = 0, y = 0, w = 1300, h = 1080}
+            {x = 0, y = 0, w = 1200, h = 1080}
             -- {x = -1089, y = 540, w = 1089, h = 1920},
         }
     },
@@ -85,7 +86,8 @@ tWindow = {
         type = 1,
         letter = "s",
         position = {
-            {x = -1090, y = 540, w = 1098, h = 1080},
+            -- {x = -1090, y = 540, w = 1098, h = 1080},
+            {x = 0, y = 0, w = 1400, h = 1080},
             {x = 0, y = 0, w = 1000, h = 1080}
         }
     },
@@ -158,7 +160,10 @@ tWindow = {
         file = "WINWORD",
         className = "NetUIHWND",
         path = "C:\\Program Files (x86)\\Microsoft Office\\Office16\\WINWORD.EXE",
-        type = 1
+        type = 1,
+        position = {
+            {x = 1200, y = 0, w = 1200, h = 1080}
+        }
     },
     cmd = {
         file = "cmd",
@@ -183,6 +188,16 @@ tWindow = {
         position = {
             {x = 1000, y = 0, w = 1000, h = 1080},
             {x = 1400, y = 0, w = 1100, h = 1080}
+        }
+    },
+    ClickCharts = {
+        title = "",
+        file = "ClickCharts_5.0",
+        path = "D:\\Program\\Tools\\ClickCharts_5.0.exe",
+        letter = "a",
+        position = {
+            {x = 000, y = 0, w = 1600, h = 1080},
+          
         }
     }
 }

@@ -322,15 +322,7 @@
         }
         
         keyFunc_MButton_space(){
-            global
-            IfWinExist, ahk_id %transGuiHwnd%
-            {
-                funcLogic_clearTranslatePanel()
-            }
-            else
-            {
-                funcLogic_tab()
-            }
+           
             return
         }
     }
@@ -603,7 +595,7 @@
             return
         }
         
-        keyFunc_backspace(){
+        keyFunc_backspace(){       
             return
         }
         
@@ -654,15 +646,7 @@
         }
         
         keyFunc_space(){
-            global
-            IfWinExist, ahk_id %transGuiHwnd%
-            {
-                funcLogic_clearTranslatePanel()
-            }
-            else
-            {
-                funcLogic_tab()
-            }
+            SendInput, {Enter}
             return
         }
     }

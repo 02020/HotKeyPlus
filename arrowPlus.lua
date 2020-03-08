@@ -3,7 +3,7 @@
 qCtrl = {}
 ------------------------------------------------------Ctrl 上
 function qCtrl:Up()
-    acSendKeys("^+T") 
+    acSendKeys("^+T")
 end
 
 ------------------------------------------------------Ctrl 下
@@ -22,13 +22,12 @@ function qCtrl:Right()
     if cur.gey < (t + 40) and cur.gey > t then
         display_message("Ctrl:Right:title")
 
-
         local win = get_config()
-      
+
         local w = {}
         if win ~= nil and win.title ~= nil then
             -- clip()
-            -- 
+            --
             w = get_handles(win.title)
             PrintTable(w)
             local i = #tWindowToogle + 1
@@ -40,8 +39,8 @@ function qCtrl:Right()
             display_message("funArrow:title is null")
         end
     else
-       -- local temp = get_handles_all(1)
-       -- acSetClipboardText(temp)
+        -- local temp = get_handles_all(1)
+        -- acSetClipboardText(temp)
     end
 end
 
@@ -64,6 +63,9 @@ end
 ------------------------------------------------------Shift 左
 function qShift:Left()
     display_message("Shift:Left")
+    local temp = get_info()
+    tip(temp)
+    acSetClipboardText(temp)
 end
 
 ------------------------------------------------------Shift 右
@@ -115,7 +117,5 @@ end
 ------------------------------------------------------CtrlShift 右
 function qCtrlShift:Right()
     display_message("Ctrl:Right")
-            local temp = get_info()
-        display_message(temp)
-        acSetClipboardText(temp)
+    execute_position(1)
 end

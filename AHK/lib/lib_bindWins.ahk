@@ -161,6 +161,7 @@ getWinInfo(btnx, bindType)
         }
         IniWrite, %winClass%, CapsLockPlusWinsInfosRecorder.ini, %btnx%, class_0 ;写入class到ini
         IniWrite, %winExe%, CapsLockPlusWinsInfosRecorder.ini, %btnx%, exe_0 ;写入path到ini
+        
         loop, % winList ;全部id写到ini里， 不知道写入会不会造成程序等待，所以和分配变量分开两个loop进行
         {
             index:=A_Index-1
@@ -280,7 +281,7 @@ activateWinAction(btnx)
             {
                 IfExist, %tempExe%
                 {           
-                  
+                    
                     ; 增加确认
                     MsgBox, 4,是否要运行程序 ,  %tempExe% ? , 2 
                     IfMsgBox Yes
@@ -560,12 +561,71 @@ doGetWinInfo:
     tTapTimesx:=tapTimes["btn" . winBtnx]
     if(tTapTimesx>0&&winBtnx>-1)
     {
-        getWinInfo(winBtnx, tTapTimesx)
-        ;~ SendInput, % winBtnx . "@" . tTapTimesx0@2
+        getWinInfo(winBtnx, tTapTimesx)         
     }
     tapTimes["btn" . winBtnx]:=0 ;重置敲击次数
     tapTimes.tapBtn:=-1 ;重置winBtnx
     gettingWinInfo:=0
+return
+
+keyTapTimes(btnx) ;判断敲击次数,绑定按键的入口函数，判断完敲击次数会调用doGetWinInfo，再调用getWinInfo
+{ 
+    leftKeyMap:={1:0,2:"9",3:"8",4:"7",5:"6","q":"p","w":"o","e":"i","r":"u","t":"y","a":":","s":"l","d":"k","f":"j","g":"h","z":"/","x":">","c":"<","v":"m","b":"n"}
+    k :=leftKeyMap[btnx]
+   
+   if(btnx="Space"){
+       Send, {Enter}
+   }else{
+   SendInput  %k%
+   }
+ 
+    
+    ; SetTimer, leftKeyMapRight, -500
+    ; tapTimes.tapBtn:=btnx ;记录按下了哪个按键
+    ; if(tapTimes["btn" .  btnx]<1)
+    ; {
+    ;     tapTimes["btn" .  btnx]:=1
+    
+    ; }
+    ; if(A_ThisHotkey = A_PriorHotkey && A_TimeSincePriorHotkey < 500)
+    ; {
+    ;     if(tapTimes["btn" .  btnx]<2)
+    ;     {
+    ;         tapTimes["btn" .  btnx]:=2
+    ;     }
+    ;     else if(tapTimes["btn" .  btnx]<3)
+    ;     {
+    ;         tapTimes["btn" .  btnx]:=3
+    ;     }
+    ;     else
+    ;     {
+    ;         tapTimes["btn" .  btnx]:=4
+    ;     }
+    ; }
+return
+}
+
+leftKeyMapRight:
+    
+    
+    SetTimer, leftKeyMapRight, Off
+    winBtnx:=tapTimes.tapBtn
+    
+    tTapTimesx:=tapTimes["btn" . winBtnx]
+    if(tTapTimesx >1 && winBtnx>-1)
+    {
+        k :=leftKeyMap[winBtnx]
+        
+    }else{
+        
+        k :=winBtnx
+        
+    }
+    SendInput  %k%
+    
+    tapTimes["btn" . winBtnx]:=0 ;重置敲击次数
+    tapTimes.tapBtn:=-1 ;重置winBtnx
+    
 return
 
 ;=function=end============================================================================
