@@ -904,7 +904,7 @@ Return
  */
 
 #SC029::
-#LButton::
+;#LButton::
 AOT_SetToggle:
 	Gosub, AOT_CheckWinIDs
 	SetWinDelay, -1
@@ -2211,7 +2211,7 @@ CFG_ApplySettings:
 	
 	Hotkey, $LButton, %CFG_LeftMouseButtonHookStr%
 	Hotkey, $^LButton, %CFG_LeftMouseButtonHookStr%
-	Hotkey, #LButton, %CFG_LeftMouseButtonHookStr%
+	;Hotkey, #LButton, %CFG_LeftMouseButtonHookStr%
 	Hotkey, #^LButton, %CFG_LeftMouseButtonHookStr%
 	
 	Hotkey, #MButton, %CFG_MiddleMouseButtonHookStr%
