@@ -293,7 +293,7 @@ function activate_window(name)
             w = get_handle_window(win)
             --  clip()
             --  PrintTable(win)
-            tip(w)
+           -- tip(w)
             activate_window_by_handle(w, win)
         end
     end

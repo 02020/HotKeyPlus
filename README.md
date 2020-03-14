@@ -102,3 +102,27 @@ acRunProgram
     {ENTER}
     
 所以ctrl+w就可以表示成^w，整个写法就是acSendKeys("^w")了，ctrl+shift+alt+h就可以表示成(^+%h)了，其他写法类推。 
+
+
+
+
+
+--[[
+-------
+ 退出三种方式
+ Alt+F4 %{F_4}
+ Ctrl+F4 ^{F_4}
+ Ctrl+w ^w
+-------
+--]]
+
+--[[
+    
+    NorthEast---东北,
+    SouthEast---东南,
+    NorthWest---西北,
+    SouthWest---西南.
+
+--]]
+-----  斜箭头
+---  屏幕的四个区域

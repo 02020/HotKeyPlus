@@ -17,7 +17,7 @@ function tip(content, title, level)
     end
     acDisplayBalloonTip(
         content,
-        "你走吧",-- title or os.date("%Y-%m-%d %H:%M"),
+        "go",-- title or os.date("%Y-%m-%d %H:%M"),
         level or 1,
         0
     )

@@ -728,7 +728,7 @@ return
         ^f12::
             try
             StringTrimLeft, OutputVar, A_ThisHotkey, 1
-            runFunc(keyset["caps_ctrl_" . OutputVar])
+            runFunc(keyset["caps_alt_" . OutputVar])
             Capslock2:=""
         Return
     }

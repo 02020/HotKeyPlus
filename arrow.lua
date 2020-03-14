@@ -21,11 +21,12 @@ end
 
 function funUp:mid()
     --显示窗体
-    display_message("funUp:mid")
+    display_message("_funUp:mid_")
     -- acSendKeys("^+q")
   --  acSendKeys("@g{DELAY 50}q")
    -- acDelay(100)
    -- acMouseMove(cur.gex + 180, cur.gey + 40)
+
 end
 
 ------------------------------------------------------ 向下
@@ -74,7 +75,7 @@ function funLeft:mid()
 end
 
 ------------------------------------------------------ 向右
---- 粘贴、刷新、全选
+
 funRight = {}
 funRightV = {}
 
@@ -117,7 +118,7 @@ end
 ----------------------------------- 中
 function funRight:mid()
     display_message("mid")
-    qExecuteToogle()
+    --qExecuteToogle()
 end
 
 ------------------------------------------------------ 上下左右
@@ -139,7 +140,8 @@ function qRight()
     if cur.gey < (t + 40) and cur.gey > t then
         funArrow:title()
     else
-        funRight[get_mouse_position_h()]()
+        position_window();
+      --  funRight[get_mouse_position_h()]()
     end
 end
 
@@ -189,26 +191,7 @@ end
 
 --08.NorthEast 东北 ↗
 function funArrow:NorthEast()
-    display_message("Max")
-    acMaximizeOrRestoreWindow(nil, cur.gsx, cur.gsy)
+    display_message("_08.↗_")
+   -- acMaximizeOrRestoreWindow(nil, cur.gsx, cur.gsy)
+    --acDisableNext()
 end
-
---[[
--------
- 退出三种方式
- Alt+F4 %{F_4}
- Ctrl+F4 ^{F_4}
- Ctrl+w ^w
--------
---]]
-
---[[
-    
-    NorthEast---东北,
-    SouthEast---东南,
-    NorthWest---西北,
-    SouthWest---西南.
-
---]]
------  斜箭头
----  屏幕的四个区域
