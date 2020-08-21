@@ -3,7 +3,8 @@
 qCtrl = {}
 ------------------------------------------------------Ctrl 上
 function qCtrl:Up()
-    acSendKeys("^+T")
+    -- acSendKeys("^+T")
+    position_window_ctrl()
 end
 
 ------------------------------------------------------Ctrl 下
@@ -17,31 +18,7 @@ end
 ------------------------------------------------------Ctrl 右
 function qCtrl:Right()
     display_message("Ctrl:Right")
-
-    t, b, l, r = get_window_size()
-    if cur.gey < (t + 40) and cur.gey > t then
-        display_message("Ctrl:Right:title")
-
-        local win = get_config()
-
-        local w = {}
-        if win ~= nil and win.title ~= nil then
-            -- clip()
-            --
-            w = get_handles(win.title)
-            PrintTable(w)
-            local i = #tWindowToogle + 1
-            for k, v in pairs(w) do
-                tWindowToogle[i] = v
-                i = i + 1
-            end
-        else
-            display_message("funArrow:title is null")
-        end
-    else
-        -- local temp = get_handles_all(1)
-        -- acSetClipboardText(temp)
-    end
+    acSendKeys("@{F_2}")
 end
 
 ------------------------------------------------------
@@ -119,3 +96,27 @@ function qCtrlShift:Right()
     display_message("Ctrl:Right")
     execute_position(1)
 end
+
+
+_MButton={}
+
+function _MButton:Up()
+     display_message("_MButton:Up")
+       acSendKeys("^@{F_1}")
+end
+
+function _MButton:Right()
+     display_message("_MButton:Right")
+       acSendKeys("^@{F_3}")
+end
+
+function _MButton:Left()
+     display_message("_MButton:Left")
+       acSendKeys("^@{F_7}")
+end
+
+function _MButton:Down()
+     display_message("_MButton:Down")
+       acSendKeys("^@{F_9}")
+end
+

@@ -69,7 +69,6 @@ function get_info()
     return s
 end
 
-
 -- 设置手势经过的两个窗口位置
 function position_window()
     -- Define Mouse Gesture direction (\)
@@ -98,19 +97,19 @@ function position_window()
     local iScreenBottom = acGetMonitorBottom(hScreen, 1)
     local iScreenRight = acGetMonitorRight(hScreen, 1)
     local iScreenLeft = acGetMonitorLeft(hScreen, 1)
-    
+
     local iScreenHeight = iScreenBottom - iScreenTop
     local iScreenWidth = iScreenRight - iScreenLeft
 
     acActivateWindow(hFirstWindow, 0, 0, 0)
 
-    if hFirstWindowTitle == hSecondWindowTitle 
-    and cur.gsx >= hFirstWindowLeft 
-    and cur.gex <= hFirstWindowRight 
-    or hSecondWindowTitle == "" 
+    if
+        hFirstWindowTitle == hSecondWindowTitle and cur.gsx >= hFirstWindowLeft and
+            cur.gex <= hFirstWindowRight or
+            hSecondWindowTitle == ""
      then
         -- Toggle Current Windows Position Center or Semi-Minimize
-        local nWinPos = iScreenLeft + iScreenWidth / 8
+        local nWinPos = math.floor(iScreenLeft + iScreenWidth / 8)
 
         acRestoreWindow(hFirstWindow, 0, 0)
         if
@@ -123,14 +122,14 @@ function position_window()
                 0,
                 0,
                 nWinPos,
-                iScreenTop + iScreenHeight / 20
+                iScreenTop + iScreenHeight / 40
             )
             acSetWindowSize(
                 hFirstWindow,
                 0,
                 0,
                 iScreenWidth - iScreenWidth / 4,
-                iScreenHeight - iScreenHeight / 10
+                iScreenHeight - iScreenHeight / 20
             )
         else
             -- Semi-Window 1/3 to the right
@@ -138,10 +137,16 @@ function position_window()
                 hFirstWindow,
                 0,
                 0,
-                iScreenLeft + iScreenWidth - iScreenWidth / 3,
+                iScreenLeft + iScreenWidth - iScreenWidth / 2.5,
                 iScreenTop
             )
-            acSetWindowSize(hFirstWindow, 0, 0, iScreenWidth / 3, iScreenHeight)
+            acSetWindowSize(
+                hFirstWindow,
+                0,
+                0,
+                iScreenWidth / 2.5,
+                iScreenHeight
+            )
         end
     else
         -- Tile Two Windows side by side
@@ -176,5 +181,59 @@ function position_window()
             iScreenWidth / 2,
             iScreenHeight - iReserveHeight
         )
+    end
+end
+
+function position_window_ctrl()
+    local hFirstWindow = acGetOwnerWindowByPoint(cur.gsx, cur.gsy)
+    local hFirstWindowLeft = acGetWindowLeft(hFirstWindow)
+    local hFirstWindowRight = acGetWindowRight(hFirstWindow)
+    local hFirstWindowTitle = acGetWindowTitle(hFirstWindow, 0, 0)
+
+    --Get Current Screen Position
+    local hScreen = acGetMonitorFromPoint(cur.gsx, cur.gsy)
+    local iScreenTop = acGetMonitorTop(hScreen, 1)
+    local iScreenBottom = acGetMonitorBottom(hScreen, 1)
+    local iScreenRight = acGetMonitorRight(hScreen, 1)
+    local iScreenLeft = acGetMonitorLeft(hScreen, 1)
+
+    local iScreenHeight = iScreenBottom - iScreenTop
+    local iScreenWidth = iScreenRight - iScreenLeft
+
+    acActivateWindow(hFirstWindow, 0, 0, 0)
+
+    -- Toggle Current Windows Position Center or Semi-Minimize
+    local nWinPos = math.floor(iScreenLeft + iScreenWidth / 1)
+
+    acRestoreWindow(hFirstWindow, 0, 0)
+    if
+        hFirstWindowLeft <= iScreenWidth + nWinPos and
+            hFirstWindowLeft ~= nWinPos
+     then
+        -- FULL
+        acMoveWindow(
+            hFirstWindow,
+            0,
+            0,
+            nWinPos,
+            iScreenTop 
+        )
+        acSetWindowSize(
+            hFirstWindow,
+            0,
+            0,
+            iScreenWidth,
+            iScreenHeight 
+        )
+    else
+        -- Semi-Window 1/3 to the right
+        acMoveWindow(
+            hFirstWindow,
+            0,
+            0,
+            iScreenLeft + iScreenWidth - iScreenWidth / 2.5,
+            iScreenTop
+        )
+        acSetWindowSize(hFirstWindow, 0, 0, iScreenWidth / 2.5, iScreenHeight)
     end
 end

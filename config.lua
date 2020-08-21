@@ -57,9 +57,9 @@ tWindow = {
         path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\IDE\\devenv.exe",
         exit = "^{F_4}",
         position = {
-            {x = 0, y = 30, w = 1800, h = 1050},
-            {x = 0, y = 0, w = 1800, h = 1080},
-           -- {x = 0, y = 0, w = 1200, h = 1080}
+             -- {x = 0, y = 30, w = 1800, h = 1050},
+           -- {x = 0, y = 0, w = 1800, h = 1080},
+          {x = 0, y = 0, w = 1300, h = 1080}
         }
     },
     vscode = {

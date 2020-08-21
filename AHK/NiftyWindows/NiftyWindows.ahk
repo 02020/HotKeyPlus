@@ -4,12 +4,10 @@
 #MaxHotkeysPerInterval 100
 #NoTrayIcon
 
-
-
 ; [SYS] autostart section
 
 SplitPath, A_ScriptFullPath, SYS_ScriptNameExt, SYS_ScriptDir, SYS_ScriptExt, SYS_ScriptNameNoExt, SYS_ScriptDrive
-SYS_ScriptVersion = 0.9.3.1
+SYS_ScriptVersion = 1.0  ;0.9.3.1
 SYS_ScriptBuild = 20050702195845
 SYS_ScriptInfo = %SYS_ScriptNameNoExt% %SYS_ScriptVersion%
 
@@ -26,9 +24,6 @@ Gosub, SYS_ParseCommandLine
 Gosub, CFG_LoadSettings
 Gosub, CFG_ApplySettings
 
-MIR_MirandaFullPath = %ProgramFiles%\Miranda\Miranda32.exe
-SplitPath, MIR_MirandaFullPath, , MIR_MirandaDir
-
 if ( !A_IsCompiled )
 	SetTimer, REL_ScriptReload, 1000
 
@@ -39,7 +34,6 @@ Gosub, SYS_ContextCheck
 ; Gosub, UPD_AutoCheckForUpdate
 
 Return
-
 
 
 ; [SYS] parses command line parameters
@@ -55,7 +49,7 @@ Return
 ; [SYS] exit handler
 
 SYS_ExitHandler:
-	Gosub, AOT_ExitHandler
+	;Gosub, AOT_ExitHandler
 	;Gosub, ROL_ExitHandler
 	Gosub, TRA_ExitHandler
 	Gosub, CFG_SaveSettings
@@ -82,7 +76,7 @@ SYS_ContextCheck:
 			Sleep, 500 ; lets the other windows relax
 		}
 	}
-	
+
 	IfNotExist, %A_ScriptDir%\readme.txt
 	{
 		TRY_TrayEvent := "Help"
@@ -103,6 +97,7 @@ SYS_ContextCheck:
 	
 	TRY_TrayEvent := "About"
 	Gosub, TRY_TrayEvent
+ 
 Return
 
 
@@ -442,7 +437,7 @@ NWD_IgnoreKeyHandler:
 Return
 
 /*
- * 改变窗体大小的核心代码
+ * TODO  改变窗体大小的核心代码
 */
 NWD_WindowHandler:
 	SetWinDelay, -1
@@ -588,7 +583,7 @@ Return
  * This additional button is used to toggle the windows start menu.
  */
 
-$XButton1::
+
 $^XButton1::
 	If ( NWD_ImmediateDown )
 		Return
@@ -596,7 +591,8 @@ $^XButton1::
 	GetKeyState, TSM_RButtonState, RButton, P
 	If ( TSM_RButtonState = "U" )
 	{
-		Send, {LWin}
+		Send, {LWin} 
+		; {LWin Down} {Left} {LWin Up}
 	}
 	Else
 		IfWinActive, A
@@ -644,7 +640,7 @@ WheelDown::
 	If ( (TSW_RButtonState = "D") and (!NWD_ImmediateDown) )
 	{
 		Btns:= {0:"LAlt",1:"LCtrl"}
-    key:= Btns[IS_VS()] 
+    key:= "LAlt" ;Btns[IS_VS()] 
 		; TODO : this is a workaround because the original tabmenu 
 		; code of AutoHotkey is buggy on some systems
 		GetKeyState, TSW_LAltState, %key%
@@ -667,7 +663,7 @@ WheelUp::
 	{
 		; TODO : this is a workaround because the original tabmenu 
 		; code of AutoHotkey is buggy on some systems
-Btns:= {0:"LAlt",1:"LCtrl"}
+	Btns:= {0:"LAlt",1:"LCtrl"}
     key:= Btns[IS_VS()] 
 
 		GetKeyState, TSW_LAltState, %key%
@@ -696,100 +692,6 @@ TSW_WheelHandler:
 		If ( TSW_LAltState = "D" )
 			Send, {%key% up}
 	}
-Return
-
-
-
-; [AOT] toggles always on top
-
-/**
- * Toggles the always-on-top attribute of the selected/active window.
- */
-
-#SC029::
-;#LButton::
-AOT_SetToggle:
-	Gosub, AOT_CheckWinIDs
-	SetWinDelay, -1
-	
-	IfInString, A_ThisHotkey, LButton
-	{
-		MouseGetPos, , , AOT_WinID
-		If ( !AOT_WinID )
-			Return
-		IfWinNotActive, ahk_id %AOT_WinID%
-			WinActivate, ahk_id %AOT_WinID%
-	}
-	
-	IfWinActive, A
-	{
-		WinGet, AOT_WinID, ID
-		If ( !AOT_WinID )
-			Return
-		WinGetClass, AOT_WinClass, ahk_id %AOT_WinID%
-		If ( AOT_WinClass = "Progman" )
-			Return
-			
-		WinGet, AOT_ExStyle, ExStyle, ahk_id %AOT_WinID%
-		If ( AOT_ExStyle & 0x8 ) ; 0x8 is WS_EX_TOPMOST
-		{
-			SYS_ToolTipText = Always on Top: OFF
-			Gosub, AOT_SetOff
-		}
-		Else
-		{
-			SYS_ToolTipText = Always on Top: ON
-			Gosub, AOT_SetOn
-		}
-		Gosub, SYS_ToolTipFeedbackShow
-	}
-Return
-
-AOT_SetOn:
-	Gosub, AOT_CheckWinIDs
-	SetWinDelay, -1
-	IfWinNotExist, ahk_id %AOT_WinID%
-		Return
-	IfNotInString, AOT_WinIDs, |%AOT_WinID%
-		AOT_WinIDs = %AOT_WinIDs%|%AOT_WinID%
-	WinSet, AlwaysOnTop, On, ahk_id %AOT_WinID%
-Return
-
-AOT_SetOff:
-	Gosub, AOT_CheckWinIDs
-	SetWinDelay, -1
-	IfWinNotExist, ahk_id %AOT_WinID%
-		Return
-	StringReplace, AOT_WinIDs, AOT_WinIDs, |%A_LoopField%, , All
-	WinSet, AlwaysOnTop, Off, ahk_id %AOT_WinID%
-Return
-
-AOT_SetAllOff:
-	Gosub, AOT_CheckWinIDs
-	Loop, Parse, AOT_WinIDs, |
-		If ( A_LoopField )
-		{
-			AOT_WinID = %A_LoopField%
-			Gosub, AOT_SetOff
-		}
-Return
-
-#^SC029::
-	Gosub, AOT_SetAllOff
-	SYS_ToolTipText = Always on Top: ALL OFF
-	Gosub, SYS_ToolTipFeedbackShow
-Return
-
-AOT_CheckWinIDs:
-	DetectHiddenWindows, On
-	Loop, Parse, AOT_WinIDs, |
-		If ( A_LoopField )
-			IfWinNotExist, ahk_id %A_LoopField%
-				StringReplace, AOT_WinIDs, AOT_WinIDs, |%A_LoopField%, , All
-Return
-
-AOT_ExitHandler:
-	Gosub, AOT_SetAllOff
 Return
 
 
@@ -911,9 +813,10 @@ Return
  * there and clickable. If you loose a transparent window it will be extremly 
  * complicated to find it again because it's invisible (see the first hotkey in 
  * this list for emergency help in such situations). 
+ <^WheelUp::
+<^WheelDown::
  */
-^WheelUp::
-^WheelDown::
+
 !WheelUp::
 !+WheelUp::
 !^WheelUp::
@@ -1317,84 +1220,6 @@ Return
 
 
 
-; [MIR] toggles the visibility of miranda buddy list
-
-/**
- * Toggles the visibility of the Miranda buddy list (if installed). Currently 
- * Miranda does not provide a hotkey to activate the buddy list if the window 
- * is still visible. Instead the opened (but not activated) buddy list will be 
- * minimized. This is not expected so this NiftyWindows feature provides the 
- * needed service asked by so many people.
- */
-
-^+b::
-	IfExist, %MIR_MirandaFullPath%
-	{
-		SetTitleMatchMode, 3
-		DetectHiddenWindows, On
-		MIR_MirandaStart = 0
-		IfWinNotExist, Miranda IM
-		{
-			Run, %MIR_MirandaFullPath%, %MIR_MirandaDir%
-			WinWait, Miranda IM
-			MIR_MirandaStart=1
-			Sleep, 500
-		}
-		DetectHiddenWindows, Off
-		IfWinActive, Miranda IM
-		{
-			If ( !MIR_MirandaStart )
-				WinHide
-		}
-		Else
-			IfWinExist, Miranda IM
-				WinActivate
-			Else
-			{
-				DetectHiddenWindows, On
-				IfWinExist, Miranda IM
-				{
-					WinShow
-					WinActivate
-				}
-			}
-	}
-	Else
-		Send, ^+b
-Return
-
-
-
-; [MIR] toggles the visibility of last used miranda message container
-
-/**
- * Toggles the visibility of the last used Miranda message container 
- * (if installed). Currently Miranda does not provide a hotkey to activate the 
- * last used message container if there is no unread message waiting for your 
- * attention. So this hotkey will make a container visible (if it is minimized) 
- * and activate it. If there is no existing message container, this hotkey will 
- * do nothing. 
- */
-
-~^+u::
-	IfExist, %MIR_MirandaFullPath%
-	{
-		Sleep, 500	
-		SetTitleMatchMode, 3
-		IfWinExist, ahk_class #32770
-		{
-			WinGetTitle, MIR_Title
-			IfNotInString MIR_Title, Mail
-				IfWinNotActive
-					WinActivate
-		}
-	}
-	Else
-		Send, ^+u
-Return
-
-
-
 ; [TRY] handles the tray icon/menu
 
 TRY_TrayInit:
@@ -1496,7 +1321,8 @@ TRY_TrayEvent:
 
 	If ( TRY_TrayEvent = "About" )
 	{
-		SYS_TrayTipText = Copyright (c) 2004-2005 by Enovatic-Solutions.`nAll rights reserved. Use is subject to license terms.`n`nCompany:`tEnovatic-Solutions (IT Service Provider)`nAuthor:`t`tOliver Pfeiffer`, Bremen (GERMANY)`nEmail:`t`tniftywindows@enovatic.org
+		SYS_TrayTipText = `n
+		;Copyright (c) 2004-2005 by Enovatic-Solutions.`nAll rights reserved. Use is subject to license terms.`n`nCompany:`tEnovatic-Solutions (IT Service Provider)`nAuthor:`t`tOliver Pfeiffer`, Bremen (GERMANY)`nEmail:`t`tniftywindows@enovatic.org
 		Gosub, SYS_TrayTipShow
 	}
 
@@ -1778,11 +1604,12 @@ CFG_ApplySettings:
 	Hotkey, $#RButton, %CFG_RightMouseButtonHookStr%
 
 	Hotkey, $XButton1, %CFG_FourthMouseButtonHookStr%
-	Hotkey, $^XButton1, %CFG_FourthMouseButtonHookStr%
+
 	
 	Hotkey, $XButton2, %CFG_FifthMouseButtonHookStr%
 	Hotkey, $^XButton2, %CFG_FifthMouseButtonHookStr%
 	*/
+		Hotkey, $^XButton1, %CFG_FourthMouseButtonHookStr%
 Return
 
 

@@ -5,6 +5,100 @@
 
 
 
+; [AOT] toggles always on top
+
+/**
+ * Toggles the always-on-top attribute of the selected/active window.
+ */
+
+#SC029::
+;#LButton::
+AOT_SetToggle:
+	Gosub, AOT_CheckWinIDs
+	SetWinDelay, -1
+	
+	IfInString, A_ThisHotkey, LButton
+	{
+		MouseGetPos, , , AOT_WinID
+		If ( !AOT_WinID )
+			Return
+		IfWinNotActive, ahk_id %AOT_WinID%
+			WinActivate, ahk_id %AOT_WinID%
+	}
+	
+	IfWinActive, A
+	{
+		WinGet, AOT_WinID, ID
+		If ( !AOT_WinID )
+			Return
+		WinGetClass, AOT_WinClass, ahk_id %AOT_WinID%
+		If ( AOT_WinClass = "Progman" )
+			Return
+			
+		WinGet, AOT_ExStyle, ExStyle, ahk_id %AOT_WinID%
+		If ( AOT_ExStyle & 0x8 ) ; 0x8 is WS_EX_TOPMOST
+		{
+			SYS_ToolTipText = Always on Top: OFF
+			Gosub, AOT_SetOff
+		}
+		Else
+		{
+			SYS_ToolTipText = Always on Top: ON
+			Gosub, AOT_SetOn
+		}
+		Gosub, SYS_ToolTipFeedbackShow
+	}
+Return
+
+AOT_SetOn:
+	Gosub, AOT_CheckWinIDs
+	SetWinDelay, -1
+	IfWinNotExist, ahk_id %AOT_WinID%
+		Return
+	IfNotInString, AOT_WinIDs, |%AOT_WinID%
+		AOT_WinIDs = %AOT_WinIDs%|%AOT_WinID%
+	WinSet, AlwaysOnTop, On, ahk_id %AOT_WinID%
+Return
+
+AOT_SetOff:
+	Gosub, AOT_CheckWinIDs
+	SetWinDelay, -1
+	IfWinNotExist, ahk_id %AOT_WinID%
+		Return
+	StringReplace, AOT_WinIDs, AOT_WinIDs, |%A_LoopField%, , All
+	WinSet, AlwaysOnTop, Off, ahk_id %AOT_WinID%
+Return
+
+AOT_SetAllOff:
+	Gosub, AOT_CheckWinIDs
+	Loop, Parse, AOT_WinIDs, |
+		If ( A_LoopField )
+		{
+			AOT_WinID = %A_LoopField%
+			Gosub, AOT_SetOff
+		}
+Return
+
+#^SC029::
+	Gosub, AOT_SetAllOff
+	SYS_ToolTipText = Always on Top: ALL OFF
+	Gosub, SYS_ToolTipFeedbackShow
+Return
+
+AOT_CheckWinIDs:
+	DetectHiddenWindows, On
+	Loop, Parse, AOT_WinIDs, |
+		If ( A_LoopField )
+			IfWinNotExist, ahk_id %A_LoopField%
+				StringReplace, AOT_WinIDs, AOT_WinIDs, |%A_LoopField%, , All
+Return
+
+AOT_ExitHandler:
+	Gosub, AOT_SetAllOff
+Return
+
+
+
 
 ; [MIW {NWD}] minimize/roll on right + left mouse button
 
@@ -600,4 +694,94 @@ UPD_AutoCheckForUpdate:
 		Else
 			UPD_LastUpdateCheck = %A_MM%
 	}
+Return
+
+
+
+
+
+
+
+
+MIR_MirandaFullPath = %ProgramFiles%\Miranda\Miranda32.exe
+SplitPath, MIR_MirandaFullPath, , MIR_MirandaDir
+
+
+
+; [MIR] toggles the visibility of miranda buddy list
+
+/**
+ * Toggles the visibility of the Miranda buddy list (if installed). Currently 
+ * Miranda does not provide a hotkey to activate the buddy list if the window 
+ * is still visible. Instead the opened (but not activated) buddy list will be 
+ * minimized. This is not expected so this NiftyWindows feature provides the 
+ * needed service asked by so many people.
+ */
+
+^+b::
+	IfExist, %MIR_MirandaFullPath%
+	{
+		SetTitleMatchMode, 3
+		DetectHiddenWindows, On
+		MIR_MirandaStart = 0
+		IfWinNotExist, Miranda IM
+		{
+			Run, %MIR_MirandaFullPath%, %MIR_MirandaDir%
+			WinWait, Miranda IM
+			MIR_MirandaStart=1
+			Sleep, 500
+		}
+		DetectHiddenWindows, Off
+		IfWinActive, Miranda IM
+		{
+			If ( !MIR_MirandaStart )
+				WinHide
+		}
+		Else
+			IfWinExist, Miranda IM
+				WinActivate
+			Else
+			{
+				DetectHiddenWindows, On
+				IfWinExist, Miranda IM
+				{
+					WinShow
+					WinActivate
+				}
+			}
+	}
+	Else
+		Send, ^+b
+Return
+
+
+
+
+
+; [MIR] toggles the visibility of last used miranda message container
+
+/**
+ * Toggles the visibility of the last used Miranda message container 
+ * (if installed). Currently Miranda does not provide a hotkey to activate the 
+ * last used message container if there is no unread message waiting for your 
+ * attention. So this hotkey will make a container visible (if it is minimized) 
+ * and activate it. If there is no existing message container, this hotkey will 
+ * do nothing. 
+ */
+
+~^+u::
+	IfExist, %MIR_MirandaFullPath%
+	{
+		Sleep, 500	
+		SetTitleMatchMode, 3
+		IfWinExist, ahk_class #32770
+		{
+			WinGetTitle, MIR_Title
+			IfNotInString MIR_Title, Mail
+				IfWinNotActive
+					WinActivate
+		}
+	}
+	Else
+		Send, ^+u
 Return

@@ -40,19 +40,23 @@ if tempLen is not number ;如果还没初始化过
 
 gosub, bindWinsInit
 
-#include lib
-#include lib_keysFunction.ahk
-#include lib_keysSet.ahk
+#Include lib
+
+#Include lib_keysFunction.ahk
+#Include lib_keysSet.ahk
 
 ;有道翻译
 #Include lib_ydTrans.ahk  
 #Include lib_functions.ahk 
 #Include lib_keysFunLogic.ahk  
+
 ;CapsLockPlus` 1~8, windows bind
 #Include lib_bindWins.ahk 
 
 ;透明度
 #Include lib_winTransparent.ahk
+
+;#Include ..\NiftyWindows\NiftyWindows.ahk
 
 #MaxHotkeysPerInterval 500
 #NoEnv
@@ -927,3 +931,35 @@ return
     Capslock2:=""
 Return
 }
+
+
+
+; Shift + Win + 功能键
++#F1::
++#F2::
++#F3::
++#F4::
++#F5::
++#F6::
++#F7::
++#F8::
++#F9::
++#F10::
++#F11::
++#F12::
++#F13::
++#F14::
++#F15::
++#F16::
++#F17::
++#F18::
++#F19::
++#F20::
++#F21::
++#F22::
++#F23::
++#F24::
+    StringMid, GRP_GroupNumber, A_ThisHotkey, 4
+   runFunc(keyset["caps_" . GRP_GroupNumber])
+         
+Return
