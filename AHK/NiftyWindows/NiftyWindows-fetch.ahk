@@ -785,3 +785,58 @@ Return
 	Else
 		Send, ^+u
 Return
+
+
+
+
+
+
+; [EXT] exits this script
+
+#x::
+	If ( A_IconHidden )
+	{
+		Menu, TRAY, Icon
+		SYS_TrayTipText = Tray icon is shown now.`nPress WIN+X again to exit NiftyWindows.
+		SYS_TrayTipSeconds = 5
+		Gosub, SYS_TrayTipShow
+		Return
+	}
+
+	If ( A_IsCompiled )
+	{
+		SYS_TrayTipText = NiftyWindows will exit now.`nYou can find it here (to start it again):`n%A_ScriptFullPath%
+		SYS_TrayTipOptions = 2
+		SYS_TrayTipSeconds = 5
+		Gosub, SYS_TrayTipShow
+		Suspend, On
+		Sleep, 5000
+		ExitApp
+	}
+
+	Gosub, SUS_SuspendSaveState
+	Suspend, On
+	MsgBox, 4145, Exit Handler - %SYS_ScriptInfo%, You pressed the hotkey for exiting this script:`n`n%A_ScriptFullPath%`n`nDo you really want to exit?
+	Gosub, SUS_SuspendRestoreState
+	IfMsgBox, OK
+		ExitApp
+Return
+
+; 启用或关闭
+#Esc::
+SUS_SuspendToggle:
+	Suspend, Permit
+	If ( !A_IsSuspended )
+	{
+		Suspend, On
+		SYS_TrayTipText = NiftyWindows is suspended now.`nPress WIN+ESC to resume it again.
+		SYS_TrayTipOptions = 2
+	}
+	Else
+	{
+		Suspend, Off
+		SYS_TrayTipText = NiftyWindows is resumed now.`nPress WIN+ESC to suspend it again.
+	}
+	Gosub, SYS_TrayTipShow
+	Gosub, TRY_TrayUpdate
+Return
