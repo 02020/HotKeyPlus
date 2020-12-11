@@ -476,7 +476,7 @@ NWD_WindowHandler:
 			{
 				If ( !NWD_ResizeX and !NWD_ResizeY )
 				{
-					NWD_WinNewX := NWD_WinStartX + NWD_MouseDeltaX
+					NWD_WinNewX := NWD_WinStartX + 0 ; + NWD_MouseDeltaX
 					NWD_WinNewY := NWD_WinStartY + NWD_MouseDeltaY
 					NWD_WinNewW := NWD_WinStartW
 					NWD_WinNewH := NWD_WinStartH
@@ -605,6 +605,51 @@ Return
 
 
 
+; [MIW {NWD}] minimize/roll on right + left mouse button
+
+/**
+ * Minimizes the selected window (if minimizable) to the task bar. If you press 
+ * the left button over the titlebar the selected window will be rolled up 
+ * instead of being minimized. You have to apply this action again to roll the 
+ * window back down.
+ */
+
+$LButton::
+$^LButton::
+	GetKeyState, MIW_RButtonState, RButton, P
+	If ( (MIW_RButtonState = "D") and (!NWD_ImmediateDown) and (NWD_WinClass != "Progman") )
+	{
+		GetKeyState, MIW_CtrlState, Ctrl, P
+		WinGet, MIW_WinStyle, Style, ahk_id %NWD_WinID%
+		SysGet, MIW_CaptionHeight, 4 ; SM_CYCAPTION
+		SysGet, MIW_BorderHeight, 7 ; SM_CXDLGFRAME
+		MouseGetPos, , MIW_MouseY
+
+	 
+			; checks wheter the window has a sizing border (WS_THICKFRAME)
+			If ( (MIW_CtrlState = "D") or (MIW_WinStyle & 0x40000) )
+			{
+				Gosub, NWD_SetAllOff
+				ROL_WinID = %NWD_WinID%
+				Gosub, ROL_RollToggle
+			}
+		
+	 
+	}
+	Else
+	{
+		; this feature should be implemented by using a timer because 
+		; AutoHotkeys threading blocks the first thread if another 
+		; one is started (until the 2nd is stopped)
+		
+		Thread, priority, 1
+		MouseClick, LEFT, , , , , D
+		KeyWait, LButton
+		MouseClick, LEFT, , , , , U
+	}
+Return	
+
+
 ; [TSW {NWD}] provides alt-tab-menu to the right mouse button + mouse wheel
 
 /**
@@ -677,6 +722,115 @@ TSW_WheelHandler:
 			Send, {%key% up}
 	}
 Return
+
+
+
+
+; [ROL] rolls up/down a window to/from its title bar
+
+ROL_RollToggle:
+	Gosub, ROL_CheckWinIDs
+	SetWinDelay, -1
+	IfWinNotExist, ahk_id %ROL_WinID%
+		Return
+	WinGetClass, ROL_WinClass, ahk_id %ROL_WinID%
+	If ( ROL_WinClass = "Progman" )
+		Return
+	
+	IfNotInString, ROL_WinIDs, |%ROL_WinID%
+	{
+		SYS_ToolTipText = Window Roll: UP
+		Gosub, ROL_RollUp
+	}
+	Else
+	{
+		WinGetPos, , , , ROL_WinHeight, ahk_id %ROL_WinID%
+		If ( ROL_WinHeight = ROL_WinRolledHeight%ROL_WinID% )
+		{
+			SYS_ToolTipText = Window Roll: DOWN
+			Gosub, ROL_RollDown
+		}
+		Else
+		{
+			SYS_ToolTipText = Window Roll: UP
+			Gosub, ROL_RollUp
+		}
+	}
+	Gosub, SYS_ToolTipFeedbackShow
+Return
+
+ROL_RollUp:
+	Gosub, ROL_CheckWinIDs
+	SetWinDelay, -1
+	IfWinNotExist, ahk_id %ROL_WinID%
+		Return
+	WinGetClass, ROL_WinClass, ahk_id %ROL_WinID%
+	If ( ROL_WinClass = "Progman" )
+		Return
+	
+	WinGetPos, , , , ROL_WinHeight, ahk_id %ROL_WinID%
+	IfInString, ROL_WinIDs, |%ROL_WinID%
+		If ( ROL_WinHeight = ROL_WinRolledHeight%ROL_WinID% ) 
+			Return
+	SysGet, ROL_CaptionHeight, 4 ; SM_CYCAPTION
+	SysGet, ROL_BorderHeight, 7 ; SM_CXDLGFRAME
+	If ( ROL_WinHeight > (ROL_CaptionHeight + ROL_BorderHeight) )
+	{
+		IfNotInString, ROL_WinIDs, |%ROL_WinID%
+			ROL_WinIDs = %ROL_WinIDs%|%ROL_WinID%
+		ROL_WinOriginalHeight%ROL_WinID% := ROL_WinHeight
+		WinMove, ahk_id %ROL_WinID%, , , , , (ROL_CaptionHeight + ROL_BorderHeight)
+		WinGetPos, , , , ROL_WinRolledHeight%ROL_WinID%, ahk_id %ROL_WinID%
+	}
+Return
+
+ROL_RollDown:
+	Gosub, ROL_CheckWinIDs
+	SetWinDelay, -1
+	If ( !ROL_WinID )
+		Return
+	IfNotInString, ROL_WinIDs, |%ROL_WinID%
+		Return
+	WinGetPos, , , , ROL_WinHeight, ahk_id %ROL_WinID%
+	If( ROL_WinHeight = ROL_WinRolledHeight%ROL_WinID% )
+		WinMove, ahk_id %ROL_WinID%, , , , , ROL_WinOriginalHeight%ROL_WinID%
+	StringReplace, ROL_WinIDs, ROL_WinIDs, |%ROL_WinID%, , All
+	ROL_WinOriginalHeight%ROL_WinID% =
+	ROL_WinRolledHeight%ROL_WinID% =
+Return
+
+ROL_RollDownAll:
+	Gosub, ROL_CheckWinIDs
+	Loop, Parse, ROL_WinIDs, |
+		If ( A_LoopField )
+		{
+			ROL_WinID = %A_LoopField%
+			Gosub, ROL_RollDown
+		}
+Return
+
+#^r::
+	Gosub, ROL_RollDownAll
+	SYS_ToolTipText = Window Roll: ALL DOWN
+	Gosub, SYS_ToolTipFeedbackShow
+Return
+
+ROL_CheckWinIDs:
+	DetectHiddenWindows, On
+	Loop, Parse, ROL_WinIDs, |
+		If ( A_LoopField )
+			IfWinNotExist, ahk_id %A_LoopField%
+			{
+				StringReplace, ROL_WinIDs, ROL_WinIDs, |%A_LoopField%, , All
+				ROL_WinOriginalHeight%A_LoopField% =
+				ROL_WinRolledHeight%A_LoopField% =
+			}
+Return
+
+ROL_ExitHandler:
+	Gosub, ROL_RollDownAll
+Return
+
 
 
 ; [TRA] provides window transparency
@@ -909,130 +1063,6 @@ Return
 	}
 Return
 
-!NumpadAdd::
-!^NumpadAdd::
-!#NumpadAdd::
-!^#NumpadAdd::
-!NumpadSub::
-!^NumpadSub::
-!#NumpadSub::
-!^#NumpadSub::
-	If ( NWD_Dragging or NWD_ImmediateDown )
-		Return
-
-	SetWinDelay, -1
-	CoordMode, Mouse, Screen
-	IfWinActive, A
-	{
-		WinGet, SIZ_WinID, ID
-		If ( !SIZ_WinID )
-			Return
-		WinGetClass, SIZ_WinClass, ahk_id %SIZ_WinID%
-		If ( SIZ_WinClass = "Progman" )
-			Return
-		
-		GetKeyState, SIZ_CtrlState, Ctrl, P
-		WinGet, SIZ_WinMinMax, MinMax, ahk_id %SIZ_WinID%
-		WinGet, SIZ_WinStyle, Style, ahk_id %SIZ_WinID%
-
-		; checks wheter the window isn't maximized and has a sizing border (WS_THICKFRAME)
-		If ( (SIZ_CtrlState = "D") or ((SIZ_WinMinMax != 1) and (SIZ_WinStyle & 0x40000)) )
-		{
-			WinGetPos, SIZ_WinX, SIZ_WinY, SIZ_WinW, SIZ_WinH, ahk_id %SIZ_WinID%
-			
-			IfInString, A_ThisHotkey, NumpadAdd
-				If ( SIZ_WinW < 160 )
-					SIZ_WinNewW = 160
-				Else
-					If ( SIZ_WinW < 320 )
-						SIZ_WinNewW = 320
-					Else
-						If ( SIZ_WinW < 640 )
-							SIZ_WinNewW = 640
-						Else
-							If ( SIZ_WinW < 800 )
-								SIZ_WinNewW = 800
-							Else
-								If ( SIZ_WinW < 1024 )
-									SIZ_WinNewW = 1024
-								Else
-									If ( SIZ_WinW < 1152 )
-										SIZ_WinNewW = 1152
-									Else
-										If ( SIZ_WinW < 1280 )
-											SIZ_WinNewW = 1280
-										Else
-											If ( SIZ_WinW < 1400 )
-												SIZ_WinNewW = 1400
-											Else
-												If ( SIZ_WinW < 1600 )
-													SIZ_WinNewW = 1600
-												Else
-													SIZ_WinNewW = 1920
-			Else
-				If ( SIZ_WinW <= 320 )
-					SIZ_WinNewW = 160
-				Else
-					If ( SIZ_WinW <= 640 )
-						SIZ_WinNewW = 320
-					Else
-						If ( SIZ_WinW <= 800 )
-							SIZ_WinNewW = 640
-						Else
-							If ( SIZ_WinW <= 1024 )
-								SIZ_WinNewW = 800
-							Else
-								If ( SIZ_WinW <= 1152 )
-									SIZ_WinNewW = 1024
-								Else
-									If ( SIZ_WinW <= 1280 )
-										SIZ_WinNewW = 1152
-									Else
-										If ( SIZ_WinW <= 1400 )
-											SIZ_WinNewW = 1280
-										Else
-											If ( SIZ_WinW <= 1600 )
-												SIZ_WinNewW = 1400
-											Else
-												If ( SIZ_WinW <= 1920 )
-													SIZ_WinNewW = 1600
-												Else
-													SIZ_WinNewW = 1920
-			
-			If ( SIZ_WinNewW > A_ScreenWidth )
-				SIZ_WinNewW := A_ScreenWidth
-			SIZ_WinNewH := 3 * SIZ_WinNewW / 4
-			If ( SIZ_WinNewW = 1280 )
-				SIZ_WinNewH := 1024
-			
-			IfInString, A_ThisHotkey, #
-			{
-				SIZ_WinNewX := SIZ_WinX + (SIZ_WinW - SIZ_WinNewW) / 2
-				SIZ_WinNewY := SIZ_WinY + (SIZ_WinH - SIZ_WinNewH) / 2
-			}
-			Else
-			{
-				SIZ_WinNewX := SIZ_WinX
-				SIZ_WinNewY := SIZ_WinY
-			}
-			
-			Transform, SIZ_WinNewX, Round, %SIZ_WinNewX%
-			Transform, SIZ_WinNewY, Round, %SIZ_WinNewY%
-			Transform, SIZ_WinNewW, Round, %SIZ_WinNewW%
-			Transform, SIZ_WinNewH, Round, %SIZ_WinNewH%
-			
-			WinMove, ahk_id %SIZ_WinID%, , SIZ_WinNewX, SIZ_WinNewY, SIZ_WinNewW, SIZ_WinNewH
-			
-			If ( SYS_ToolTipFeedback )
-			{
-				WinGetPos, SIZ_ToolTipWinX, SIZ_ToolTipWinY, SIZ_ToolTipWinW, SIZ_ToolTipWinH, ahk_id %SIZ_WinID%
-				SYS_ToolTipText = Window Size: (X:%SIZ_ToolTipWinX%, Y:%SIZ_ToolTipWinY%, W:%SIZ_ToolTipWinW%, H:%SIZ_ToolTipWinH%)
-				Gosub, SYS_ToolTipFeedbackShow
-			}
-		}
-	}
-Return
-
 
 
 ; [XWN] provides X Window like focus switching (focus follows mouse)
@@ -1138,70 +1168,6 @@ Return
 		Gosub, SYS_ToolTipFeedbackShow
 	}
 Return
-
-#F1::
-#F2::
-#F3::
-#F4::
-#F5::
-#F6::
-#F7::
-#F8::
-#F9::
-#F10::
-#F11::
-#F12::
-#F13::
-#F14::
-#F15::
-#F16::
-#F17::
-#F18::
-#F19::
-#F20::
-#F21::
-#F22::
-#F23::
-#F24::
-	StringMid, GRP_GroupNumber, A_ThisHotkey, 2, 3
-	GroupActivate, Group%GRP_GroupNumber%
-	
-	SYS_ToolTipText = Activated next window in group %GRP_GroupNumber%.
-	Gosub, SYS_ToolTipFeedbackShow
-Return
-
-; 关闭
-!#F1::
-!#F2::
-!#F3::
-!#F4::
-!#F5::
-!#F6::
-!#F7::
-!#F8::
-!#F9::
-!#F10::
-!#F11::
-!#F12::
-!#F13::
-!#F14::
-!#F15::
-!#F16::
-!#F17::
-!#F18::
-!#F19::
-!#F20::
-!#F21::
-!#F22::
-!#F23::
-!#F24::
-	StringMid, GRP_GroupNumber, A_ThisHotkey, 3, 3
-	GroupClose, Group%GRP_GroupNumber%, A
-	
-	SYS_ToolTipText = Closed all windows in group %GRP_GroupNumber%.
-	Gosub, SYS_ToolTipFeedbackShow
-Return
-
 
 
 ; [TRY] handles the tray icon/menu
@@ -1404,22 +1370,6 @@ Return
 
 
 
-; [EDT] edits this script in notepad
-
-^#!F9::
-	If ( A_IsCompiled )
-		Return
-	
-	Gosub, SUS_SuspendSaveState
-	Suspend, On
-	MsgBox, 4129, Edit Handler - %SYS_ScriptInfo%, You pressed the hotkey for editing this script:`n`n%A_ScriptFullPath%`n`nDo you really want to edit?
-	Gosub, SUS_SuspendRestoreState
-	IfMsgBox, OK
-		Run, notepad.exe %A_ScriptFullPath%
-Return
-
-
-
 ; [REL] reloads this script on change
 
 REL_ScriptReload:
@@ -1561,37 +1511,4 @@ CFG_ApplySettings:
 	Hotkey, $^XButton2, %CFG_FifthMouseButtonHookStr%
 	*/
 		Hotkey, $^XButton1, %CFG_FourthMouseButtonHookStr%
-Return
-
-
-^#!b::
-	If ( !A_IsCompiled )
-	{
-		UPD_VersionFile = %SYS_ScriptDir%\version.txt
-		IfExist, %UPD_VersionFile%
-		{
-			FileDelete, %UPD_VersionFile%
-			If ( ErrorLevel )
-				Return
-		}
-		FileAppend, %SYS_ScriptVersion%, %UPD_VersionFile%
-		If ( ErrorLevel )
-			Return
-			
-		UPD_BuildFile = %SYS_ScriptDir%\build.txt
-		IfExist, %UPD_BuildFile%
-		{
-			FileDelete, %UPD_BuildFile%
-			If ( ErrorLevel )
-				Return
-		}
-		FileAppend, %A_NowUTC%, %UPD_BuildFile%
-		If ( ErrorLevel )
-			Return
-		
-		SYS_TrayTipText = Version and build files were written successfully:`n%UPD_VersionFile%`n%UPD_BuildFile%
-		SYS_TrayTipOptions = 2
-		SYS_TrayTipSeconds = 5
-		Gosub, SYS_TrayTipShow
-	}
 Return
