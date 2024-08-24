@@ -13,12 +13,14 @@ function qCtrl:Down()
 end
 ------------------------------------------------------Ctrl 左
 function qCtrl:Left()
-    display_message("Ctrl:Left")
+    -- display_message("Ctrl:Left")
+    acSendKeys("^@{LEFT}")  -- 上一个桌面
 end
 ------------------------------------------------------Ctrl 右
 function qCtrl:Right()
-    display_message("Ctrl:Right")
-    acSendKeys("@{F_2}")
+    -- display_message("Ctrl:Right")
+    -- acSendKeys("@{F_2}")
+    acSendKeys("^@{RIGHT}")  -- 下一个桌面
 end
 
 ------------------------------------------------------

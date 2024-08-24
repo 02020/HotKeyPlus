@@ -1,6 +1,33 @@
 # HotKeyPlus
 
-StrokesPlus.lua 文件格式需要处理 git 支持 UTF-8 格式 
+
+## 窗口大小与位置
+1. 2560 - 3840,  1440
+2. 鼠标方向：上下左右
+3. 鼠标位置：起/终点
+4. 鼠标轨迹：长度
+
+### ↑
+1. 移动到顶部
+
+### ↓
+1. 移动到底部
+2. 移动到另一个显示器
+
+
+
+### →
+
+1. 修改窗口大小
+2.
+
+### ←
+1.
+
+
+
+
+StrokesPlus.lua 文件格式需要处理 git 支持 UTF-8 格式
 文件尾部空格要删除
 
 firefox.exe|iexplore.exe|opera.exe|360se.exe|vivaldi.exe
@@ -54,7 +81,7 @@ firefox.exe|iexplore.exe|opera.exe|360se.exe|vivaldi.exe
 列表：vs
 
 `className` 固定，使用acFindWindow方法，无法返回数据
-列表：google, vivaldi, vscode 
+列表：google, vivaldi, vscode
 
 
 
@@ -64,44 +91,44 @@ firefox.exe|iexplore.exe|opera.exe|360se.exe|vivaldi.exe
 
 
 #### 浏览器
- 
+
 
 
 https://github.com/wo52616111/capslock-plus
 
-在搜狗浏览器中acSendKeys("^{F_4}")一直不成功，换成了 
-acSendControlDown() 
-acSendKeys("{DELAY=50}{F_4}") 
-acSendControlUp() 
-就能正常执行了。 
-记住,Down之后一定要Up，否则键盘的状态将一直是这个键被按下的状态。 
-除了ctrl之外，还有 
-acSendAltDown()和acSendAltUp()      Alt键 
-acSendShiftDown和acSendShiftUp()   Shift键 
-acSendWinDown()和acSendWinUp()   Windows键 
+在搜狗浏览器中acSendKeys("^{F_4}")一直不成功，换成了
+acSendControlDown()
+acSendKeys("{DELAY=50}{F_4}")
+acSendControlUp()
+就能正常执行了。
+记住,Down之后一定要Up，否则键盘的状态将一直是这个键被按下的状态。
+除了ctrl之外，还有
+acSendAltDown()和acSendAltUp()      Alt键
+acSendShiftDown和acSendShiftUp()   Shift键
+acSendWinDown()和acSendWinUp()   Windows键
 
 acSendKeys("{DELAY 5000}")
 acRunProgram
 
-在S+中，是这样表示一些特殊按键的。 
-下面是对照表： 
-    @ = Windows键 
-    + = SHIFT 
-    ^ = CTRL 
-    % = ALT 
-    {F_1}=F1 
-    当中类推 
-    {F_9}=F9 
-    {F10}=F10 
-    当中类推 
-    {F12}=F12 
-    {AT}=@ 
-    {PLUS} = + 
-    {CARET} = ^ 
-    {PERCENT} = % 
+在S+中，是这样表示一些特殊按键的。
+下面是对照表：
+    @ = Windows键
+    + = SHIFT
+    ^ = CTRL
+    % = ALT
+    {F_1}=F1
+    当中类推
+    {F_9}=F9
+    {F10}=F10
+    当中类推
+    {F12}=F12
+    {AT}=@
+    {PLUS} = +
+    {CARET} = ^
+    {PERCENT} = %
     {ENTER}
-    
-所以ctrl+w就可以表示成^w，整个写法就是acSendKeys("^w")了，ctrl+shift+alt+h就可以表示成(^+%h)了，其他写法类推。 
+
+所以ctrl+w就可以表示成^w，整个写法就是acSendKeys("^w")了，ctrl+shift+alt+h就可以表示成(^+%h)了，其他写法类推。
 
 
 
@@ -117,7 +144,7 @@ acRunProgram
 --]]
 
 --[[
-    
+
     NorthEast---东北,
     SouthEast---东南,
     NorthWest---西北,

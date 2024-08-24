@@ -74,7 +74,7 @@ CapsLock & h::                                                       ;|
 if GetKeyState("control") = 0                                        ;|
 {                                                                    ;|
     if GetKeyState("alt") = 0                                        ;|
-        Send, {Left}                                                 ;|
+        Send, ^{Left}                                                 ;|
     else                                                             ;|
         Send, +{Left}                                                ;|
     return                                                           ;|
@@ -92,7 +92,7 @@ CapsLock & j::                                                       ;|
 if GetKeyState("control") = 0                                        ;|
 {                                                                    ;|
     if GetKeyState("alt") = 0                                        ;|
-        Send, {Down}                                                 ;|
+        Send, ^{Down}                                                 ;|
     else                                                             ;|
         Send, +{Down}                                                ;|
     return                                                           ;|
@@ -110,7 +110,7 @@ CapsLock & k::                                                       ;|
 if GetKeyState("control") = 0                                        ;|
 {                                                                    ;|
     if GetKeyState("alt") = 0                                        ;|
-        Send, {Up}                                                   ;|
+        Send, ^{Up}                                                   ;|
     else                                                             ;|
         Send, +{Up}                                                  ;|
     return                                                           ;|
@@ -128,7 +128,7 @@ CapsLock & l::                                                       ;|
 if GetKeyState("control") = 0                                        ;|
 {                                                                    ;|
     if GetKeyState("alt") = 0                                        ;|
-        Send, {Right}                                                ;|
+        Send, ^{Right}                                                ;|
     else                                                             ;|
         Send, +{Right}                                               ;|
     return                                                           ;|
@@ -289,8 +289,8 @@ CapsLock & c:: Send, ^c                                              ;|
 CapsLock & v:: Send, ^v                                              ;|
 CapsLock & a:: Send, ^a                                              ;|
 CapsLock & y:: Send, ^y                                              ;|
-CapsLock & w:: Send, ^{Right}                                        ;|
-CapsLock & b:: Send, ^{Left}                                         ;|
+; CapsLock & w:: Send, ^{Right}                                        ;|
+; CapsLock & b:: Send, ^{Left}                                         ;|
 ;---------------------------------------------------------------------o
 
 
@@ -324,16 +324,16 @@ CapsLock & F6:: Send, {Media_Stop}                                   ;|
 ;-----------------------------------o---------------------------------o
 CapsLock & s::Send, ^{Tab}                                           ;|
 ;-----------------------------------o                                ;|
-CapsLock & q::                                                       ;|
-if GetKeyState("alt") = 0                                            ;|
-{                                                                    ;|
-    Send, ^w                                                         ;|
-}                                                                    ;|
-else {                                                               ;|
-    Send, !{F4}                                                      ;|
-    return                                                           ;|
-}                                                                    ;|
-return                                                               ;|
+; CapsLock & q::                                                       ;|
+; if GetKeyState("alt") = 0                                            ;|
+; {                                                                    ;|
+;     Send, ^w                                                         ;|
+; }                                                                    ;|
+; else {                                                               ;|
+;     Send, !{F4}                                                      ;|
+;     return                                                           ;|
+; }                                                                    ;|
+; return                                                               ;|
 ;-----------------------------------o                                ;|
 CapsLock & g:: Send, {AppsKey}                                       ;|
 ;---------------------------------------------------------------------o
@@ -344,15 +344,16 @@ CapsLock & g:: Send, {AppsKey}                                       ;|
 ;-----------------------------------o---------------------------------o
 ;                     CapsLock + d  |  Alt + d(Dictionary)           ;|
 ;                     CapsLock + f  |  Alt + f(Search via Everything);|
+;                     CapsLock + f  |  save all  vscode              ;|
 ;                     CapsLock + e  |  Open Search Engine            ;|
 ;                     CapsLock + r  |  Open Shell                    ;|
 ;                     CapsLock + t  |  Open Text Editor              ;|
 ;-----------------------------------o---------------------------------o
 CapsLock & d:: Send, !d                                              ;|
-CapsLock & f:: Send, !f                                              ;|
-CapsLock & e:: Run http://cn.bing.com/                               ;|
-CapsLock & r:: Run Powershell                                        ;|
-CapsLock & t:: Run C:\Program Files (x86)\Notepad++\notepad++.exe    ;|
+CapsLock & f:: Send, ^+s                                            ;|
+; CapsLock & 3:: Run http://www.baidu.com/                             ;|
+; CapsLock & 4:: Run Powershell                                        ;|
+; CapsLock & 5:: Run C:\Program Files\Notepad++\notepad++.exe          ;|
 ;---------------------------------------------------------------------o
 
 
@@ -403,3 +404,10 @@ CapsLock & 8:: Send,+8                                               ;|
 CapsLock & 9:: Send,+9                                               ;|
 CapsLock & 0:: Send,+0                                               ;|
 ;---------------------------------------------------------------------o
+
+RCtrl & Q:: Send,#1
+RCtrl & W:: Send,#2                                               ;|
+RCtrl & E:: Send,#3                                               ;|
+RCtrl & R:: Send,#4                                               ;|
+RCtrl & T:: Send,#5                                               ;|
+RCtrl & 5:: Send,{F5}                                             ;|

@@ -1,7 +1,7 @@
 ;; Shortcuts for cursor movement/text edit
 ;; as well as something else
 ;; 符号说明
-;;  < 左边  > 右边  
+;;  < 左边  > 右边
 ;; + shift ! alt  <! 左边的alt
 ;; >! 右边Alt
 ;; ^ Ctrl

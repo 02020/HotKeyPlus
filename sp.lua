@@ -1,10 +1,8 @@
 aliencore = alien.core
-
 user32 = aliencore.load("user32.dll")
 
 gGetAncestor = user32.GetAncestor
-
-gGetAncestor:types {ret = "long", abi = "stdcall", "long", "uint"}
+gGetAncestor:types { ret = "long", abi = "stdcall", "long", "uint" }
 
 GA_PARENT = 1
 
@@ -13,11 +11,8 @@ GA_ROOT = 2
 GA_ROOTOWNER = 3
 
 -- 屏幕信息显示级别
-
 -- 0：都不显示提示
-
 -- 1：显示关键操作提示
-
 -- 2：显示所有操作提示
 
 function sp_init()
@@ -31,10 +26,39 @@ function aGetAncestor(iWnd, iFlags)
 end
 
 function sp_before_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)
+    -- 鼠标绘制的长度
+    local distanceX = math.abs(gex - gsx)
+    local distanceY = math.abs(gey - gsy)
+
+    local hwnd = aGetAncestor(acGetWindowByPoint(gsx, gsy), GA_ROOT)
+
+    local top = acGetWindowTop(hwnd)
+    local bottom = acGetWindowBottom(hwnd)
+    local height = bottom - top
+
+    local name = acGetClassName(hwnd)
     -- this code is fired before each action (excluding hotkey actions)
-    cur = {gsx = gsx, gsy = gsy, gex = gex, gey = gey}
+    cur = {
+        gsx = gsx,
+        gsy = gsy,
+        gex = gex,
+        gey = gey,
+        top = top,
+        bottom = bottom,
+        height = height,
+        perH = distanceY /height,
+        hwnd = hwnd,
+        name = name,
+        distanceX = distanceX,
+        distanceY = distanceY
+    }
+
+    --
+    local msg = "name:" .. name .. "\n hwnd:" .. hwnd
+    -- acSetClipboardText(msg)
+
     -- 先激活手势开始时所在窗口
-    acActivateWindow(aGetAncestor(acGetWindowByPoint(gsx, gsy), GA_ROOT), 0, 0)
+    -- acActivateWindow(hwnd, 0, 0)
 end
 
 function sp_after_action(gnm, gsx, gsy, gex, gey, gwd, gapp, gact)

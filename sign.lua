@@ -1,16 +1,12 @@
-function qSignA()
-    display_message("A")
-end
-
 function qSignB()
     display_message("B")
- 
+
 end
 
 function qSignC()
     display_message("C")
     activate_window("doc")
- 
+
 end
 
 function qSignD()
@@ -30,7 +26,7 @@ function qSignP()
 end
 
 function qSignR()
-    display_message("R")    
+    display_message("R")
       -- 不使用
 end
 
@@ -51,15 +47,8 @@ end
 
 function qSignV()
     display_message("@V")
- 
+
 end
-
-
-function qSignX()
-    display_message("X")
-   --acDisableNext()
-end
-
 
 
 ------------------------------------------------------ 其他符号
@@ -67,16 +56,16 @@ end
 -- ^
 function qSignUp()
     display_message("^")
- 
+
 end
 
 -- ↓↖
 function qSignExit()
     display_message("Exit")
-    acSendKeys("%{F_4}")    
+    acSendKeys("%{F_4}")
 end
 
--- >  
+-- >
 function qSignRightLeft()
     display_message("F")
     display_message("Find", 1, gsx, gsy)

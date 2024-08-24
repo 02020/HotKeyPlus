@@ -11,30 +11,31 @@
 ------------------------------------------------------ 上下左右
 
 function qUp()
-    acSendKeys("+@{F_1}")
+    acSendKeys("{F12}")
 end
+-- @`
 
 function qRight()
-  --  acSendKeys("+@{F_3}")
+    --  acSendKeys("+@{F_3}")
     acSendKeys("@{RIGHT}")
-
 end
 
 function qLeft()
-    acSendKeys("+@{F_7}")
+    -- acSendKeys("+@{F_7}")
+    acSendKeys("@{LEFT}")
 end
 
 function qDown()
-    acSendKeys("+@{F_9}")
+    -- acSendKeys("@{F12}")
+    acSendKeys("@{ESC}")
 end
 
-funArrow={}
+funArrow = {}
 ------------------------------------------------------ 八方
 --02.SouthWest 西南 ↙
 function funArrow:SouthWest()
     display_message("mini")
     lastHwnd = acGetForegroundWindow()
-    -- acMinimizeWindow(nil, cur.gsx, cur.gsy)
     acMinimizeWindow(lastHwnd)
 end
 
@@ -53,8 +54,9 @@ end
 --04.SouthEast 东南 ↘
 function funArrow:SouthEast()
     -- Delete
-    display_message("Delete")
-    acSendKeys("{DELETE}")
+    -- display_message("Delete")
+    -- acSendKeys("{DELETE}")
+    acSendKeys("@{F12}")
 end
 
 --08.NorthEast 东北 ↗
